@@ -6,12 +6,8 @@ use App\Interfaces\AppCommandInterface;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$config['settings'] = [
-    'displayErrorDetails' => true,
-];
-
 // Boot the app
-$app = new Slim\App($config);
+$app = new Slim\App();
 
 // Register services
 $container = $app->getContainer();
