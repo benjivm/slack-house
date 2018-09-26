@@ -40,7 +40,7 @@ $app->post('/webhook/ifttt', function ($request, $response) {
         // 3. Turn on the Kasa smart plug for the TV, receiver, and speakers
         // 4. Tell Harmony to activate the Shield TV activity
         if ($payload->command === 'activate_movie_time') {
-            change_env('PLEX_WEBHOOKS', 'enabled');
+            $this->commands->changeConfigSetting('PLEX_WEBHOOKS', 'enabled');
             $this->lifx->activateScene('movieTime', 5);
             $this->ifttt->trigger('turn_tv_plug_on');
             $this->ifttt->trigger('start_shield_activity');

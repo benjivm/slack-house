@@ -58,19 +58,20 @@ These routes handle the commands sent by Plex webhooks or IFTTT applets. The IFT
 So, for example, if I want to activate movie time, I tell my Google Assistant: "It's movie time.", and it triggers the IFTTT webhook for movie time, which is processed here:
 
 ```
-if ($payload['event'] === 'home_command') {
+// Handle home events
+if ($payload->event === 'home_command') {
     // Movie time!
     // 1. Re-enable Plex webhooks so lights respond (in case they are disabled)
     // 2. Activate the LIFX Movie Time scene over 5 seconds
     // 3. Turn on the Kasa smart plug for the TV, receiver, and speakers
     // 4. Tell Harmony to activate the Shield TV activity
-    if ($payload['command'] === 'activate_movie_time') {
-        $this->get('services')['database']->setSetting('plex_webhooks', 'enabled');
-        $lifx->activateScene('movie_time_scene', 5);
-        $ifttt->trigger('turn_tv_plug_on');
-        $ifttt->trigger('start_shield_activity');
+    if ($payload->command === 'activate_movie_time') {
+        $this->commands->changeConfigSetting('PLEX_WEBHOOKS', 'enabled');
+        $this->lifx->activateScene('movieTime', 5);
+        $this->ifttt->trigger('turn_tv_plug_on');
+        $this->ifttt->trigger('start_shield_activity');
 
-        return $response->withJson($request->getParsedBody()['command'] . ' webhook fired.');
+        return $response->withJson($payload->command . ' webhook fired.');
     }
 }
 ```
@@ -130,9 +131,9 @@ So, for example, if I press play on a movie in Plex the webhook will be handled 
 
 ```
 // Handle the Play event
-if ($payload['event'] === 'media.play') {
+if ($payload->event === 'media.play') {
     // Power off all the lights in the LIFX Warm Night scene over 30 seconds
-    $lifx->activateScene('warm_night_scene', 30, ['power' => 'off']);
+    $lifx->activateScene('warmNight', 30, ['power' => 'off']);
 
     return $response->withJson('Play event handled.');
 }
