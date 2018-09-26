@@ -1,0 +1,19 @@
+{
+  "require": {
+    "slim/slim": "^3.10",
+    "guzzlehttp/guzzle": "^6.3",
+    "justinrainbow/json-schema": "^5.2",
+    "vlucas/phpdotenv": "^2.5"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "files": [
+      "app/helpers.php"
+    ]
+  }
+}

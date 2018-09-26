@@ -1,0 +1,5 @@
+.idea
+vendor/
+database/*.sqlite3
+logs/*.log
+.env

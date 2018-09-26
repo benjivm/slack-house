@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "event": {
+      "type": "string"
+    },
+    "Player": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid"
+      ]
+    },
+    "Metadata": {
+      "type": "object",
+      "properties": {
+        "librarySectionType": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "librarySectionType"
+      ]
+    }
+  },
+  "required": [
+    "event",
+    "Player",
+    "Metadata"
+  ]
+}
