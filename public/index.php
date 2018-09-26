@@ -19,14 +19,14 @@ $app->post('/webhook/ifttt', function ($request, $response) {
     if ($payload->event === 'app_command') {
         // Disable plex webhooks
         if ($payload->command === 'disable_plex_webhooks') {
-            change_env('PLEX_WEBHOOKS', 'disabled');
+            $this->commands->changeConfigSetting('PLEX_WEBHOOKS', 'disabled');
 
             return $response->withJson('Plex webhooks disabled.');
         }
 
         // Enable plex webhooks
         if ($payload->command === 'enable_plex_webhooks') {
-            change_env('PLEX_WEBHOOKS', 'enabled');
+            $this->commands->changeConfigSetting('PLEX_WEBHOOKS', 'enabled');
 
             return $response->withJson('Plex webhooks enabled.');
         }

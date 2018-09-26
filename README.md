@@ -23,7 +23,11 @@ The only endpoint that must be accessible outside your private network is `/webh
 
 This app interacts with the following products: Plex, LIFX, Harmony, and IFTTT. But it should be trivial to integrate any other products so long as they provide an HTTP API or IFTTT can interact with them.
 
-First set your configuration options in `.env`, and then create or edit the corresponding config files in `/config/*.php`. All PHP files in the `/config` directory are merged into the app config array (see: `/bootstrap/app.php`).
+First set your configuration options in `.env`, and then run the following command to generate the config file:
+
+`php slack config:generate`
+
+**Note**: The config file is rewritten entirely every time the `config:generate` command is called, so do not ever edit this file directly. Instead, edit the `.env` file and then run the command to save your changes to `/config/slackhouse.php`.
 
 Plex players that are allowed to trigger events are verified by `UUID` in the `PLEX_PLAYERS` option (see the `/webhook/plex` endpoint for an example of how this is used). Plex media types allowed to trigger events are listed in the `PLEX_ALLOWED_MEDIA` setting. Both settings can be a single value or a comma separated list of values (e.g., `PLEX_ALLOWED_MEDIA="movie,show"`, or `PLEX_ALLOWED_MEDIA=artist`.)
 

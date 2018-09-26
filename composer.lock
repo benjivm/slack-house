@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f084ec398e3a7ed3ceb740f554f5717",
+    "content-hash": "6de7d37a00493fa665d3e6ba652b3327",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -36,6 +36,39 @@
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
             "time": "2017-02-14T19:40:03+00:00"
+        },
+        {
+            "name": "gmask/config-generator",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gmask/config-generator.git",
+                "reference": "a647dbd8e5db1818b70567e08e0ecd3401269e7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gmask/config-generator/zipball/a647dbd8e5db1818b70567e08e0ecd3401269e7c",
+                "reference": "a647dbd8e5db1818b70567e08e0ecd3401269e7c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gmask\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Ben Miller",
+                    "email": "bvmiller@mail.sfsu.edu"
+                }
+            ],
+            "description": "Convert .env files to static .php configuration files.",
+            "time": "2018-09-26T18:42:16+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -551,57 +584,130 @@
             "time": "2018-09-16T10:54:21+00:00"
         },
         {
-            "name": "vlucas/phpdotenv",
-            "version": "v2.5.1",
+            "name": "symfony/console",
+            "version": "v4.1.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e"
+                "url": "https://github.com/symfony/console.git",
+                "reference": "ca80b8ced97cf07390078b29773dc384c39eee1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e",
-                "reference": "8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e",
+                "url": "https://api.github.com/repos/symfony/console/zipball/ca80b8ced97cf07390078b29773dc384c39eee1f",
+                "reference": "ca80b8ced97cf07390078b29773dc384c39eee1f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": "^7.1.3",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "conflict": {
+                "symfony/dependency-injection": "<3.4",
+                "symfony/process": "<3.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.0"
+                "psr/log": "~1.0",
+                "symfony/config": "~3.4|~4.0",
+                "symfony/dependency-injection": "~3.4|~4.0",
+                "symfony/event-dispatcher": "~3.4|~4.0",
+                "symfony/lock": "~3.4|~4.0",
+                "symfony/process": "~3.4|~4.0"
+            },
+            "suggest": {
+                "psr/log-implementation": "For using the console logger",
+                "symfony/event-dispatcher": "",
+                "symfony/lock": "",
+                "symfony/process": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Dotenv\\": "src/"
-                }
+                    "Symfony\\Component\\Console\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Vance Lucas",
-                    "email": "vance@vancelucas.com",
-                    "homepage": "http://www.vancelucas.com"
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "description": "Symfony Console Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-07-26T11:24:31+00:00"
+        },
+        {
+            "name": "symfony/dotenv",
+            "version": "v4.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dotenv.git",
+                "reference": "22ca63c46e252b8a8f37b8f9e6da66bff5b3d3e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dotenv/zipball/22ca63c46e252b8a8f37b8f9e6da66bff5b3d3e7",
+                "reference": "22ca63c46e252b8a8f37b8f9e6da66bff5b3d3e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "symfony/process": "~3.4|~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Dotenv\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Registers environment variables from a .env file",
+            "homepage": "https://symfony.com",
             "keywords": [
                 "dotenv",
                 "env",
                 "environment"
             ],
-            "time": "2018-07-29T20:33:41+00:00"
-        }
-    ],
-    "packages-dev": [
+            "time": "2018-07-26T11:24:31+00:00"
+        },
         {
             "name": "symfony/polyfill-mbstring",
             "version": "v1.9.0",
@@ -660,7 +766,9 @@
                 "shim"
             ],
             "time": "2018-08-06T14:22:27+00:00"
-        },
+        }
+    ],
+    "packages-dev": [
         {
             "name": "symfony/polyfill-php72",
             "version": "v1.9.0",

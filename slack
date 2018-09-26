@@ -1,0 +1,12 @@
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use App\Commands\GenerateConfig;
+use Symfony\Component\Console\Application;
+
+$slackHouseCli = new Application();
+
+$slackHouseCli->add(new GenerateConfig());
+
+$slackHouseCli->run();

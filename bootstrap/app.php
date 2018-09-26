@@ -2,13 +2,13 @@
 
 use App\Services\Lifx\Lifx;
 use App\Services\Ifttt\Ifttt;
+use App\Interfaces\AppCommandInterface;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = new Dotenv\Dotenv(base_path());
-$dotenv->load();
-
-$config['settings'] = require base_path('config/slim.php');
+$config['settings'] = [
+    'displayErrorDetails' => true,
+];
 
 // Boot the app
 $app = new Slim\App($config);
@@ -17,9 +17,12 @@ $app = new Slim\App($config);
 $container = $app->getContainer();
 
 $container['config'] = function () {
-    $config = require base_path('config/slackhouse.php');
+    $appConfig = require base_path('config/slackhouse.php');
+    return $appConfig;
+};
 
-    return $config;
+$container['commands'] = function () {
+    return new AppCommandInterface();
 };
 
 $container['ifttt'] = function ($container) {
@@ -37,7 +40,7 @@ $container['lifx'] = function ($container) {
 };
 
 // Catch all errors and return a generic message if APP_ENV=production
-if ($container->config['environment'] === 'production') {
+if ($container->config['app']['env'] === 'production') {
     $container['errorHandler'] = function ($container) {
         return function ($request, $response, $exception) use ($container) {
             return $container['response']
