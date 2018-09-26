@@ -31,7 +31,7 @@ class GenerateConfig extends Command
         $outputConfig = base_path('config/slackhouse.php');
 
         $generator = new ConfigGenerator($envFile, $outputConfig);
-        $generator->generate();
+        $generator->generate()->php();
 
         $output->writeln('Config generated at ' . $outputConfig);
     }
