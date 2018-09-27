@@ -73,10 +73,9 @@ class VerifyIftttWebhook
     private function log($request)
     {
         $routeInfo = $request->getAttribute('routeInfo')['request'];
-        $ipAddress = $request->getAttribute('ip_address');
         $payload = json_encode($request->getParsedBody(), JSON_PRETTY_PRINT);
 
-        $message = sprintf("\n[%s] %s\n[IP ADDRESS] %s\n[PAYLOAD]\n%s", $routeInfo[0], $routeInfo[1], $ipAddress, $payload);
+        $message = sprintf("\n[%s] %s\n[PAYLOAD]\n%s", $routeInfo[0], $routeInfo[1], $payload);
 
         $this->logger->info($message);
     }

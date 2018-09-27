@@ -1,3 +1,3 @@
 <?php
 
-$app->add(new RKA\Middleware\IpAddress);
+//$app->add(new YourMiddlewareHere);

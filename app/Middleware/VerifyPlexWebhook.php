@@ -74,10 +74,9 @@ class VerifyPlexWebhook
     private function log($request)
     {
         $routeInfo = $request->getAttribute('routeInfo')['request'];
-        $ipAddress = $request->getAttribute('ip_address');
         $payload = $request->getParsedBody()['payload'];
 
-        $message = sprintf("\n[%s] %s\n[IP ADDRESS] %s\n[PAYLOAD]\n%s", $routeInfo[0], $routeInfo[1], $ipAddress, $payload);
+        $message = sprintf("\n[%s] %s\n[PAYLOAD]\n%s", $routeInfo[0], $routeInfo[1], $payload);
 
         $this->logger->info($message);
     }
