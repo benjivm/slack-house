@@ -19,18 +19,18 @@ $app->group('/webhook', function () use ($app) {
 
         // Handle app events
         if ($payload->event === 'app_command') {
-            // Disable plex webhooks
-            if ($payload->command === 'disable_plex_webhooks') {
-                $this->appCommand->changeConfigSetting('PLEX_WEBHOOKS', 'disabled');
-
-                return $response->withJson('Plex webhooks disabled.');
-            }
-
             // Enable plex webhooks
             if ($payload->command === 'enable_plex_webhooks') {
                 $this->appCommand->changeConfigSetting('PLEX_WEBHOOKS', 'enabled');
 
                 return $response->withJson('Plex webhooks enabled.');
+            }
+
+            // Disable plex webhooks
+            if ($payload->command === 'disable_plex_webhooks') {
+                $this->appCommand->changeConfigSetting('PLEX_WEBHOOKS', 'disabled');
+
+                return $response->withJson('Plex webhooks disabled.');
             }
         }
 

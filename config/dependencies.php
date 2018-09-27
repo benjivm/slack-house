@@ -20,11 +20,11 @@ $container['config'] = function () {
  * @return \Monolog\Logger
  */
 $container['logger'] = function ($container) {
-    $settings = $container->get('settings')['logger'];
-    $config = $container->get('config');
+    $settings = $container->settings['logger'];
+    $config = $container->config;
 
     $logger = new Monolog\Logger($settings['name']);
-    $logger->pushHandler(new DiscordHandler\DiscordHandler([$config['discord']['webhookUrl']], 'slackhouse', 'webhooks', 'DEBUG'));
+    $logger->pushHandler(new DiscordHandler\DiscordHandler([$config['discord']['webhookUrl']], 'slack', 'house', 'DEBUG'));
 
     return $logger;
 };

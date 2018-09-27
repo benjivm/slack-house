@@ -12,8 +12,6 @@ class VerifyIftttWebhook
 
     public function __construct($container)
     {
-        $this->ifttt = $container->ifttt;
-
         $this->logger = $container->logger;
 
         $this->config = $container->config['ifttt'];
@@ -22,9 +20,9 @@ class VerifyIftttWebhook
     /**
      * Validate request data for IFTTT webhooks.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request PSR7 request
-     * @param \Psr\Http\Message\ResponseInterface $response PSR7 response
-     * @param callable $next Next middleware
+     * @param \Psr\Http\Message\ServerRequestInterface $request  PSR7 request
+     * @param \Psr\Http\Message\ResponseInterface      $response PSR7 response
+     * @param callable                                 $next     Next middleware
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -34,15 +32,15 @@ class VerifyIftttWebhook
         $this->log($request);
 
         // Get the request object
-        $payload = (object)$request->getParsedBody();
+        $payload = (object) $request->getParsedBody();
 
         // Load the IFTTT JSON schema
         $validator = new Validator();
-        $validator->validate($payload, (object)['$ref' => 'file://' . base_path('config/schema/ifttt.json')]);
+        $validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/ifttt.json')]);
 
         // Validate the JSON payload against the IFTTT schema
         // Log and fail otherwise
-        if (!$validator->isValid()) {
+        if (! $validator->isValid()) {
             $this->logger->warning("\n[RESULT] Invalid payload.");
 
             return $response->withJson('Invalid payload.', 422);
@@ -58,9 +56,6 @@ class VerifyIftttWebhook
 
         // Successfully verified webhook.
         $this->logger->info("\n[RESULT] IFTTT webhook verified.");
-
-        // Unset the key before passing the request object on
-        unset($payload->key);
 
         return $next($request->withParsedBody($payload), $response);
     }

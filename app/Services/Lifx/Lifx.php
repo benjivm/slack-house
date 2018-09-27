@@ -52,21 +52,6 @@ class Lifx
     }
 
     /**
-     * Create a POST request.
-     *
-     * @param $uri
-     * @param null $data
-     *
-     * @return string
-     */
-    private function post($uri, $data = null)
-    {
-        $request = $this->client->post($uri, ['body' => $this->toJson($data)]);
-
-        return $this->createResponse($request);
-    }
-
-    /**
      * Create a PUT request.
      *
      * @param $uri

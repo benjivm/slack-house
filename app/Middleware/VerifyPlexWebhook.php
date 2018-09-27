@@ -20,9 +20,9 @@ class VerifyPlexWebhook
     /**
      * Validate request data for Plex webhooks.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request PSR7 request
-     * @param \Psr\Http\Message\ResponseInterface $response PSR7 response
-     * @param callable $next Next middleware
+     * @param \Psr\Http\Message\ServerRequestInterface $request  PSR7 request
+     * @param \Psr\Http\Message\ResponseInterface      $response PSR7 response
+     * @param callable                                 $next     Next middleware
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -41,11 +41,11 @@ class VerifyPlexWebhook
 
         // Load the Plex JSON schema
         $validator = new Validator();
-        $validator->validate($payload, (object)['$ref' => 'file://' . base_path('config/schema/plex.json')]);
+        $validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/plex.json')]);
 
         // Validate the JSON payload against the Plex schema
         // Log and fail otherwise
-        if (!$validator->isValid()) {
+        if (! $validator->isValid()) {
             $this->logger->warning("\n[RESULT] Invalid payload.");
 
             return $response->withJson('Invalid payload.', 422);
@@ -53,8 +53,8 @@ class VerifyPlexWebhook
 
         // Ensure both the player's UUID and the media type are allowed
         // Log and fail otherwise
-        if (!in_array($payload->Player->uuid, $this->config['players']) ||
-            !in_array($payload->Metadata->librarySectionType, $this->config['allowedMedia'])) {
+        if (! in_array($payload->Player->uuid, $this->config['players']) ||
+            ! in_array($payload->Metadata->librarySectionType, $this->config['allowedMedia'])) {
             $this->logger->warning("\n[RESULT] Invalid player or media type.");
 
             return $response->withJson('Well that didn\'t work.', 401);
