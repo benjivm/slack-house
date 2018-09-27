@@ -6,7 +6,8 @@
       "type": "string"
     },
     "event": {
-      "type": "string"
+      "type": "string",
+      "enum": ["app_command", "home_command"]
     },
     "command": {
       "type": "string"

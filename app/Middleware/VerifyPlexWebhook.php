@@ -6,18 +6,13 @@ use JsonSchema\Validator;
 
 class VerifyPlexWebhook
 {
-    private $container;
+    private $logger;
 
     private $config;
 
-    /**
-     * VerifyIftttWebhook constructor.
-     *
-     * @param $container
-     */
     public function __construct($container)
     {
-        $this->container = $container;
+        $this->logger = $container->logger;
 
         $this->config = $container->config['plex'];
     }
@@ -25,14 +20,17 @@ class VerifyPlexWebhook
     /**
      * Validate request data for Plex webhooks.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request  PSR7 request
-     * @param \Psr\Http\Message\ResponseInterface      $response PSR7 response
-     * @param callable                                 $next     Next middleware
+     * @param \Psr\Http\Message\ServerRequestInterface $request PSR7 request
+     * @param \Psr\Http\Message\ResponseInterface $response PSR7 response
+     * @param callable $next Next middleware
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function __invoke($request, $response, $next)
     {
+        // Log the invocation of this middleware
+        $this->log($request);
+
         // Immediately eject if Plex webhooks are disabled
         if ($this->config['webhooks'] === 'disabled') {
             return $response->withJson('Plex webhooks are disabled.', 500);
@@ -41,20 +39,46 @@ class VerifyPlexWebhook
         // Get the payload from the request
         $payload = json_decode($request->getParsedBody()['payload']);
 
-        // Validate the payload schema
+        // Load the Plex JSON schema
         $validator = new Validator();
-        $validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/plex.json')]);
+        $validator->validate($payload, (object)['$ref' => 'file://' . base_path('config/schema/plex.json')]);
 
-        if (! $validator->isValid()) {
+        // Validate the JSON payload against the Plex schema
+        // Log and fail otherwise
+        if (!$validator->isValid()) {
+            $this->logger->warning("\n[RESULT] Invalid payload.");
+
             return $response->withJson('Invalid payload.', 422);
         }
 
         // Ensure both the player's UUID and the media type are allowed
-        if (! in_array($payload->Player->uuid, $this->config['players']) ||
-            ! in_array($payload->Metadata->librarySectionType, $this->config['allowedMedia'])) {
+        // Log and fail otherwise
+        if (!in_array($payload->Player->uuid, $this->config['players']) ||
+            !in_array($payload->Metadata->librarySectionType, $this->config['allowedMedia'])) {
+            $this->logger->warning("\n[RESULT] Invalid player or media type.");
+
             return $response->withJson('Well that didn\'t work.', 401);
         }
 
+        // Successfully verified webhook.
+        $this->logger->info("\n[RESULT] Plex webhook verified.");
+
         return $next($request->withParsedBody($payload), $response);
+    }
+
+    /**
+     * Log this request.
+     *
+     * @param $request
+     */
+    private function log($request)
+    {
+        $routeInfo = $request->getAttribute('routeInfo')['request'];
+        $ipAddress = $request->getAttribute('ip_address');
+        $payload = $request->getParsedBody()['payload'];
+
+        $message = sprintf("\n[%s] %s\n[IP ADDRESS] %s\n[PAYLOAD]\n%s", $routeInfo[0], $routeInfo[1], $ipAddress, $payload);
+
+        $this->logger->info($message);
     }
 }

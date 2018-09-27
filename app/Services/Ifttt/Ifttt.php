@@ -29,14 +29,23 @@ class Ifttt
     /**
      * Trigger an event.
      *
-     * @param $event
+     * @param string $event
+     * @param string $value1
+     * @param string $value2
+     * @param string $value3
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return string
      */
-    public function trigger($event)
+    public function trigger(string $event, string $value1 = null, string $value2 = null, string $value3 = null)
     {
-        $request = $this->client->post($event . '/with/key/' . $this->config['key']);
+        $parameters = [
+            'value1' => $value1,
+            'value2' => $value2,
+            'value3' => $value3,
+        ];
 
-        return json_decode($request->getBody()->getContents());
+        $request = $this->client->post($event . '/with/key/' . $this->config['key'], ['form_params' => $parameters]);
+
+        return $request->getBody()->getContents();
     }
 }

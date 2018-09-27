@@ -3,7 +3,8 @@
   "type": "object",
   "properties": {
     "event": {
-      "type": "string"
+      "type": "string",
+      "enum": ["media.play", "media.pause", "media.resume", "media.stop"]
     },
     "Player": {
       "type": "object",

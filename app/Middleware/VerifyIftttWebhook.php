@@ -6,48 +6,78 @@ use JsonSchema\Validator;
 
 class VerifyIftttWebhook
 {
-    private $container;
+    private $logger;
 
-    /**
-     * VerifyIftttWebhook constructor.
-     *
-     * @param $container
-     */
+    private $config;
+
     public function __construct($container)
     {
-        $this->container = $container;
+        $this->ifttt = $container->ifttt;
+
+        $this->logger = $container->logger;
+
+        $this->config = $container->config['ifttt'];
     }
 
     /**
      * Validate request data for IFTTT webhooks.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request  PSR7 request
-     * @param \Psr\Http\Message\ResponseInterface      $response PSR7 response
-     * @param callable                                 $next     Next middleware
+     * @param \Psr\Http\Message\ServerRequestInterface $request PSR7 request
+     * @param \Psr\Http\Message\ResponseInterface $response PSR7 response
+     * @param callable $next Next middleware
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function __invoke($request, $response, $next)
     {
+        // Log the invocation of this middleware
+        $this->log($request);
+
         // Get the request object
-        $payload = (object) $request->getParsedBody();
+        $payload = (object)$request->getParsedBody();
 
-        // Validate the payload schema
+        // Load the IFTTT JSON schema
         $validator = new Validator();
-        $validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/ifttt.json')]);
+        $validator->validate($payload, (object)['$ref' => 'file://' . base_path('config/schema/ifttt.json')]);
 
-        if (! $validator->isValid()) {
+        // Validate the JSON payload against the IFTTT schema
+        // Log and fail otherwise
+        if (!$validator->isValid()) {
+            $this->logger->warning("\n[RESULT] Invalid payload.");
+
             return $response->withJson('Invalid payload.', 422);
         }
 
         // Ensure the key sent is our IFTTT Maker key
-        if ($payload->key !== $this->container->config['ifttt']['key']) {
+        // Log and fail otherwise
+        if ($payload->key !== $this->config['key']) {
+            $this->logger->warning("\n[RESULT] Invalid key.");
+
             return $response->withJson('Well that didn\'t work.', 401);
         }
+
+        // Successfully verified webhook.
+        $this->logger->info("\n[RESULT] IFTTT webhook verified.");
 
         // Unset the key before passing the request object on
         unset($payload->key);
 
         return $next($request->withParsedBody($payload), $response);
+    }
+
+    /**
+     * Log this request.
+     *
+     * @param $request
+     */
+    private function log($request)
+    {
+        $routeInfo = $request->getAttribute('routeInfo')['request'];
+        $ipAddress = $request->getAttribute('ip_address');
+        $payload = json_encode($request->getParsedBody(), JSON_PRETTY_PRINT);
+
+        $message = sprintf("\n[%s] %s\n[IP ADDRESS] %s\n[PAYLOAD]\n%s", $routeInfo[0], $routeInfo[1], $ipAddress, $payload);
+
+        $this->logger->info($message);
     }
 }
