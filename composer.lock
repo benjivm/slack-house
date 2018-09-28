@@ -39,16 +39,16 @@
         },
         {
             "name": "gmask/config-generator",
-            "version": "0.0.4",
+            "version": "0.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gmask/config-generator.git",
-                "reference": "9a57134f27b5864e667da08faa54a172f6221ca7"
+                "reference": "f9c95d2922d9769688de39108040a6db11d5438e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gmask/config-generator/zipball/9a57134f27b5864e667da08faa54a172f6221ca7",
-                "reference": "9a57134f27b5864e667da08faa54a172f6221ca7",
+                "url": "https://api.github.com/repos/gmask/config-generator/zipball/f9c95d2922d9769688de39108040a6db11d5438e",
+                "reference": "f9c95d2922d9769688de39108040a6db11d5438e",
                 "shasum": ""
             },
             "require": {
@@ -69,7 +69,7 @@
                 }
             ],
             "description": "Convert .env files to static .php configuration files.",
-            "time": "2018-09-27T01:29:32+00:00"
+            "time": "2018-09-28T00:47:08+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
