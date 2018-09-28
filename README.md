@@ -10,42 +10,41 @@ This is a barebones and personal app, but you may find it a useful starting poin
 
 - PHP 7+
 - [Composer](https://getcomposer.org/)
+- Plex Pass (if you want Plex webhooks)
 
 The only endpoint that must be accessible outside your private network is `/webhook/*` so that IFTTT and Plex can interact with the app.
 
 - Create an [Apache](https://httpd.apache.org/docs/2.4/vhosts/examples.html) or [Nginx](https://www.nginx.com/resources/wiki/start/topics/examples/full/) host file for the app (**important**: the document root should be `/public`)
 - Clone or download the repo to the appropriate directory you setup in the previous step (again, ensure the `/public` directory is your document root)
 - Install dependencies: `composer install --no-dev`
-- Create an `.env` file: `cp .env.example .env`
-- Run migrations and seed the db: `./vendor/bin/phinx migrate;./vendor/bin/phinx seed:run`
+- Create an `.env` file: `cp .env.example .env` and edit the contents with your desired configuration
+- Now generate your unique configuration file by executing `php slack config:generate` from a terminal. **Note**: The config file is regenerated every time the `slack config:generate` command is called, so do not  edit it directly. Instead, edit the `.env` file and then run the command to save your changes to `config/slackhouse.php`.
 
 # Usage
 
-This app interacts with the following products: Plex, LIFX, Harmony, and IFTTT. But it should be trivial to integrate any other products so long as they provide an HTTP API or IFTTT can interact with them.
+This app interacts primarily with LIFX and Plex, but, in my configuration, through IFTTT webhooks it also sends commands to Harmony, Shield TV, and TP Link smart plugs. It should be trivial to integrate any other products so long as they provide an HTTP API or IFTTT can interact with them.
 
-First set your configuration options in `.env`, and then run the following command to generate the config file:
+[Monolog](https://github.com/Seldaek/monolog) messages are sent to my Discord server, but there are [many other ways](https://github.com/Seldaek/monolog/blob/master/doc/02-handlers-formatters-processors.md#handlers) to catch them.
 
-`php slack config:generate`
+There are only two endpoints: `/webhook/plex` and `/webhook/ifttt`, see the `routes/routes.php` file. Both endpoints have their own middleware to handle requests, see `app/Middleware`. 
 
-**Note**: The config file is rewritten entirely every time the `config:generate` command is called, so do not ever edit this file directly. Instead, edit the `.env` file and then run the command to save your changes to `/config/slackhouse.php`.
+Plex players that are allowed to trigger events are verified by `UUID` in the `PLEX_PLAYERS` option (see the `VerifyPlexWebhook` middleware file for an example of how this is used). Plex media types allowed to trigger events are listed in the `PLEX_ALLOWED_MEDIA` setting. Both settings can be a single value or a comma separated list of values (e.g., `PLEX_ALLOWED_MEDIA="movie,show"`, or `PLEX_ALLOWED_MEDIA=artist`.)
 
-Plex players that are allowed to trigger events are verified by `UUID` in the `PLEX_PLAYERS` option (see the `/webhook/plex` endpoint for an example of how this is used). Plex media types allowed to trigger events are listed in the `PLEX_ALLOWED_MEDIA` setting. Both settings can be a single value or a comma separated list of values (e.g., `PLEX_ALLOWED_MEDIA="movie,show"`, or `PLEX_ALLOWED_MEDIA=artist`.)
+You can hack up the IFTTT and LIFX API wrappers as needed, they're located in the `app/Services` directory and use the [Guzzle](https://github.com/guzzle/guzzle) client for requests.
 
-You can hack up the IFTTT and LIFX API wrappers as needed, they're located in the `/app/Services` directory and use the [Guzzle](https://github.com/guzzle/guzzle) client for requests.
-
-Now open `public/index.php`, you'll see two routes:
+In the `routes/routes.php` you'll see the two endpoints:
 
 ```
-$app->post('/webhook/ifttt', function ($request, $response) {
+$app->post('/webhook/ifttt', function (Request $request, Response $response) {
     ...
 });
 
-$app->post('/webhook/plex', function ($request, $response) {
+$app->post('/webhook/plex', function (Request $request, Response $response) {
     ...
 });
 ```
 
-These routes handle the commands sent by Plex webhooks or IFTTT applets. The IFTTT commands are formed like this:
+These routes handle the commands sent by Plex webhooks or IFTTT applets. The IFTTT commands must be structured like this in order to pass schema validation (see the IFTTT middleware):
 
 ```
 {
@@ -76,7 +75,7 @@ if ($payload->event === 'home_command') {
 }
 ```
 
-Plex sends its payloads as JSON in a URL encoded POST request, so we need to run `json_decode()` on the `payload` after we receive it. Plex payloads look like this:
+Plex sends its payloads as JSON in a URL encoded POST request, so we need to run `json_decode()` on the `payload` after we receive it. The Plex middleware validates the Plex payloads, which look like this:
 
 ```
 {
@@ -127,7 +126,7 @@ Plex sends its payloads as JSON in a URL encoded POST request, so we need to run
 }
 ```
 
-So, for example, if I press play on a movie in Plex the webhook will be handled here:
+So if I press play on a movie in Plex the webhook will be handled here:
 
 ```
 // Handle the Play event
