@@ -13,6 +13,10 @@ class VerifyPlexWebhookTest extends TestCase
     public function setUp()
     {
         $this->builder = new VerifyPlexWebhookBuilder();
+
+        $this->request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     public function testInstanciation()
@@ -31,16 +35,12 @@ class VerifyPlexWebhookTest extends TestCase
             'plex' => ['webhooks' => 'disabled'],
         ];
 
-        $request = $this->getMockBuilder(Request::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $verifyPlexWebhook = $this->builder->withConfig($config)
             ->withMonologStub()
             ->withValidatorStub()
             ->build();
 
-        $response = $verifyPlexWebhook($request, new Response, null);
+        $response = $verifyPlexWebhook($this->request, new Response(), null);
 
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(500, $response->getStatusCode());
@@ -52,18 +52,88 @@ class VerifyPlexWebhookTest extends TestCase
             'plex' => ['webhooks' => 'enabled'],
         ];
 
-        $request = $this->getMockBuilder(Request::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $verifyPlexWebhook = $this->builder->withConfig($config)
             ->withMonologStub()
             ->withValidatorMock()
             ->build();
 
-        $response = $verifyPlexWebhook($request, new Response, null);
+        $response = $verifyPlexWebhook($this->request, new Response(), null);
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(422, $response->getStatusCode());        
+        $this->assertEquals(422, $response->getStatusCode());
+    }
+
+    public function testErrorResponsePlayerIsNotAllowed()
+    {
+        $config = [
+            'plex' => [
+                'webhooks' => 'enabled',
+                'players' => ['error'],
+                'allowedMedia' => ['test'],
+            ],
+        ];
+
+        $payload = [
+            'payload' => json_encode([
+                'Player' => [
+                    'uuid' => 'test',
+                ],
+                'Metadata' => [
+                    'librarySectionType' => 'test',
+                ]
+            ]),
+        ];
+
+        $this->request->expects($this->any())
+            ->method('getParsedBody')
+            ->willReturn($payload);
+
+        $verifyPlexWebhook = $this->builder->withConfig($config)
+            ->withMonologStub()
+            ->withValidatorStub()
+            ->withValidatonPassed()
+            ->build();
+
+        $response = $verifyPlexWebhook($this->request, new Response(), null);
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEquals(401, $response->getStatusCode());
+    }
+
+    public function testErrorResponseTypeIsNotAllowed()
+    {
+        $config = [
+            'plex' => [
+                'webhooks' => 'enabled',
+                'players' => ['test'],
+                'allowedMedia' => ['error'],
+            ],
+        ];
+
+        $payload = [
+            'payload' => json_encode([
+                'Player' => [
+                    'uuid' => 'test',
+                ],
+                'Metadata' => [
+                    'librarySectionType' => 'test',
+                ]
+            ]),
+        ];
+
+        $this->request->expects($this->any())
+            ->method('getParsedBody')
+            ->willReturn($payload);
+
+        $verifyPlexWebhook = $this->builder->withConfig($config)
+            ->withMonologStub()
+            ->withValidatorStub()
+            ->withValidatonPassed()
+            ->build();
+
+        $response = $verifyPlexWebhook($this->request, new Response(), null);
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEquals(401, $response->getStatusCode());
     }
 }

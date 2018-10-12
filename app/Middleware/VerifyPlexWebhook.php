@@ -54,10 +54,17 @@ class VerifyPlexWebhook
             return $response->withJson('Invalid payload.', 422);
         }
 
+        $isPlayerAllowed = in_array($payload->Player->uuid, $this->config['players']);
+        if (!$isPlayerAllowed) {
+            $this->logger->warning("\n[RESULT] Invalid player or media type.");
+
+            return $response->withJson('Well that didn\'t work.', 401);            
+        }
+
         // Ensure both the player's UUID and the media type are allowed
         // Log and fail otherwise
-        if (! in_array($payload->Player->uuid, $this->config['players']) ||
-            ! in_array($payload->Metadata->librarySectionType, $this->config['allowedMedia'])) {
+        $isMediaTypeAllowed = in_array($payload->Metadata->librarySectionType, $this->config['allowedMedia']);
+        if (!$isMediaTypeAllowed) {
             $this->logger->warning("\n[RESULT] Invalid player or media type.");
 
             return $response->withJson('Well that didn\'t work.', 401);
