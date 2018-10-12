@@ -10,11 +10,15 @@ class VerifyIftttWebhook
 
     private $config;
 
+    private $validator;
+
     public function __construct($container)
     {
         $this->logger = $container->logger;
 
         $this->config = $container->config['ifttt'];
+
+        $this->validator = $container->validator;
     }
 
     /**
@@ -35,12 +39,11 @@ class VerifyIftttWebhook
         $payload = (object) $request->getParsedBody();
 
         // Load the IFTTT JSON schema
-        $validator = new Validator();
-        $validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/ifttt.json')]);
+        $this->validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/ifttt.json')]);
 
         // Validate the JSON payload against the IFTTT schema
         // Log and fail otherwise
-        if (! $validator->isValid()) {
+        if (!$this->validator->isValid()) {
             $this->logger->warning("\n[RESULT] Invalid payload.");
 
             return $response->withJson('Invalid payload.', 422);

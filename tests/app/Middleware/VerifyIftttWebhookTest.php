@@ -19,6 +19,7 @@ class VerifyIftttWebhookTest extends TestCase
     {
         $verifyIftttWebhook = $this->builder->withConfig(['ifttt' => []])
             ->withMonologStub()
+            ->withValidatorStub()
             ->build();
 
         $this->assertInstanceOf(VerifyIftttWebhook::class, $verifyIftttWebhook);
@@ -36,6 +37,7 @@ class VerifyIftttWebhookTest extends TestCase
 
         $verifyIftttWebhook = $this->builder->withConfig(['ifttt' => []])
             ->withMonologStub()
+            ->withValidatorMock()
             ->build();
 
         $response = $verifyIftttWebhook($request, new Response(), null);
