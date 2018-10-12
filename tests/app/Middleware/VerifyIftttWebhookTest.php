@@ -31,10 +31,6 @@ class VerifyIftttWebhookTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $request->expects($this->any())
-            ->method('getParsedBody')
-            ->willReturn([]);
-
         $verifyIftttWebhook = $this->builder->withConfig(['ifttt' => []])
             ->withMonologStub()
             ->withValidatorMock()
