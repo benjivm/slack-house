@@ -5,13 +5,16 @@ namespace Test\Builders;
 use App\Controllers\IftttController;
 use App\Interfaces\AppCommandInterface;
 use App\Services\Ifttt\Ifttt;
+use App\Services\Lifx\Lifx;
 use PHPUnit\Framework\TestCase;
 
 class IftttControllerBuilder extends TestCase
 {
-    protected $appCommand;
+    private $appCommand;
 
-    protected $lifx;
+    private $lifx;
+
+    private $ifttt;
 
     public function withAppCommandStub()
     {
@@ -23,7 +26,16 @@ class IftttControllerBuilder extends TestCase
 
     public function withLifxStub()
     {
-        $this->lifx = $this->getMockBuilder(Ifttt::class)
+        $this->lifx = $this->getMockBuilder(Lifx::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        return $this;
+    }
+
+    public function withIfttt()
+    {
+        $this->ifttt = $this->getMockBuilder(Ifttt::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -32,6 +44,6 @@ class IftttControllerBuilder extends TestCase
 
     public function build()
     {
-        return new IftttController($this->appCommand, $this->lifx);
+        return new IftttController($this->appCommand, $this->lifx, $this->ifttt);
     }
 }
