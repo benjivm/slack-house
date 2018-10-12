@@ -10,11 +10,15 @@ class VerifyPlexWebhook
 
     private $config;
 
+    private $validator;
+
     public function __construct($container)
     {
         $this->logger = $container->logger;
 
         $this->config = $container->config['plex'];
+
+        $this->validator = $container->validator;
     }
 
     /**
@@ -40,12 +44,11 @@ class VerifyPlexWebhook
         $payload = json_decode($request->getParsedBody()['payload']);
 
         // Load the Plex JSON schema
-        $validator = new Validator();
-        $validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/plex.json')]);
+        $this->validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/plex.json')]);
 
         // Validate the JSON payload against the Plex schema
         // Log and fail otherwise
-        if (! $validator->isValid()) {
+        if (!$this->validator->isValid()) {
             $this->logger->warning("\n[RESULT] Invalid payload.");
 
             return $response->withJson('Invalid payload.', 422);

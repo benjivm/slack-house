@@ -19,6 +19,7 @@ class VerifyPlexWebhookTest extends TestCase
     {
         $verifyPlexWebhook = $this->builder->withConfig(['plex' => []])
             ->withMonologStub()
+            ->withValidatorStub()
             ->build();
             
         $this->assertInstanceOf(VerifyPlexWebhook::class, $verifyPlexWebhook);
@@ -36,6 +37,7 @@ class VerifyPlexWebhookTest extends TestCase
 
         $verifyPlexWebhook = $this->builder->withConfig($config)
             ->withMonologStub()
+            ->withValidatorStub()
             ->build();
 
         $response = $verifyPlexWebhook($request, new Response, null);
@@ -56,6 +58,7 @@ class VerifyPlexWebhookTest extends TestCase
 
         $verifyPlexWebhook = $this->builder->withConfig($config)
             ->withMonologStub()
+            ->withValidatorMock()
             ->build();
 
         $response = $verifyPlexWebhook($request, new Response, null);

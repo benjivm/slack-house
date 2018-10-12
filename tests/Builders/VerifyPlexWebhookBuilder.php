@@ -3,8 +3,9 @@
 namespace Test\Builders;
 
 use App\Middleware\VerifyPlexWebhook;
-use PHPUnit\Framework\TestCase;
+use JsonSchema\Validator;
 use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
 
 class VerifyPlexWebhookBuilder extends TestCase
 {
@@ -24,11 +25,38 @@ class VerifyPlexWebhookBuilder extends TestCase
         return $this;
     }
 
+    public function withValidatorMock()
+    {
+        $this->validator = $this->getMockBuilder(Validator::class)
+            ->setMethods(null)
+            ->getMock();
+
+        return $this;
+    }
+
+    public function withValidatorStub()
+    {
+        $this->validator = $this->getMockBuilder(Validator::class)
+            ->getMock();
+
+        return $this;
+    }
+
+    public function withValidatonPassed()
+    {
+        $this->validator->expects($this->once())
+            ->method('isValid')
+            ->willReturn(true);
+
+        return $this;
+    }
+
     public function build()
     {
         $container = (object)[];
         $container->logger = $this->logger;
         $container->config = $this->config;
+        $container->validator = $this->validator;
 
         return new VerifyPlexWebhook($container);
     }
