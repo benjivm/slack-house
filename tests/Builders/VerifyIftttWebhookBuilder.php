@@ -48,6 +48,15 @@ class VerifyIftttWebhookBuilder extends TestCase
         return $this;
     }
 
+    public function withValidatonPassed()
+    {
+        $this->validator->expects($this->once())
+            ->method('isValid')
+            ->willReturn(true);
+
+        return $this;
+    }
+
     public function build()
     {
         $container = (object) [];

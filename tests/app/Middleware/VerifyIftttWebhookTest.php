@@ -43,6 +43,32 @@ class VerifyIftttWebhookTest extends TestCase
         $response = $verifyIftttWebhook($request, new Response(), null);
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals($response->getStatusCode(), 422);
+        $this->assertEquals(422, $response->getStatusCode());
+    }
+
+    public function testIftttKeyMakerValidation()
+    {
+        $request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $request->expects($this->any())
+            ->method('getParsedBody')
+            ->willReturn(['key' => 'test']);
+
+        $config = [
+            'ifttt' => ['key' => 'key'],
+        ];
+
+        $verifyIftttWebhook = $this->builder->withConfig($config)
+            ->withMonologStub()
+            ->withValidatorStub()
+            ->withValidatonPassed()
+            ->build();
+
+        $response = $verifyIftttWebhook($request, new Response(), null);
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEquals(401, $response->getStatusCode());
     }
 }
