@@ -11,8 +11,8 @@ $app->group('/webhook', function () use ($app) {
     * @param $response
     * @return JSON response
     */
-    $app->post('/ifttt', IftttController::class)
-        ->add('App\Middleware\VerifyIftttWebhook');
+    $app->post('/ifttt', 'app.controller.ifttt')
+        ->add('app.middleware.verify_ifttt_webhook');
 
     /*
     * Handle PLEX webhooks.
@@ -21,6 +21,6 @@ $app->group('/webhook', function () use ($app) {
     * @param $response
     * @return JSON response
     */
-    $app->post('/plex', PlexController::class)
-        ->add('App\Middleware\VerifyPlexWebhook');
+    $app->post('/plex', 'app.controller.plex')
+        ->add('app.middleware.verify_plex_webhook');
 });

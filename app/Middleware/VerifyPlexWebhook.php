@@ -12,13 +12,11 @@ class VerifyPlexWebhook
 
     private $validator;
 
-    public function __construct($container)
+    public function __construct($logger, $config, $validator)
     {
-        $this->logger = $container->logger;
-
-        $this->config = $container->config['plex'];
-
-        $this->validator = $container->validator;
+        $this->logger = $logger;
+        $this->config = $config['plex'];
+        $this->validator = $validator;
     }
 
     /**

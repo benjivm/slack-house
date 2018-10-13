@@ -12,13 +12,11 @@ class VerifyIftttWebhook
 
     private $validator;
 
-    public function __construct($container)
+    public function __construct($logger, $config, $validator)
     {
-        $this->logger = $container->logger;
-
-        $this->config = $container->config['ifttt'];
-
-        $this->validator = $container->validator;
+        $this->logger = $logger;
+        $this->config = $config['ifttt'];
+        $this->validator = $validator;
     }
 
     /**

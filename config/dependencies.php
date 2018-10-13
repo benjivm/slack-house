@@ -58,6 +58,26 @@ $container['app.services.lifx_client'] = $container->factory(function($container
     ]);
 });
 
+$container['app.services.validator'] = $container->factory(function($container) {
+    return new JsonSchema\Validator();
+});
+
+$container['app.middleware.verify_ifttt_webhook'] = function($container) {
+    $logger = $container->get('logger');
+    $config = $container->get('config');
+    $validator = $container->get('app.services.validator');
+
+    return new App\Middleware\VerifyPlexWebhook($logger, $config, $validator);
+};
+
+$container['app.middleware.verify_plex_webhook'] = function($container) {
+    $logger = $container->get('logger');
+    $config = $container->get('config');
+    $validator = $container->get('app.services.validator');
+
+    return new App\Middleware\VerifyIftttWebhook($logger, $config, $validator);
+};
+
 /*
  * IFTTT Service.
  *
@@ -91,7 +111,6 @@ $container['app.controller.ifttt'] = function($container) {
 
     return new App\Controllers\IftttController($appCommand, $lifx, $ifttt);
 };
-
 
 $container['app.controller.plex'] = function($container) {
     $lifx = $container->get('lifx');
