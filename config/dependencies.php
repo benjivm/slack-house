@@ -38,6 +38,26 @@ $container['appCommand'] = function () {
     return new App\Interfaces\AppCommandInterface();
 };
 
+$container['app.services.ifttt_client'] = $container->factory(function($container) {
+    return new GuzzleHttp\Client([
+        'base_uri' => 'https://maker.ifttt.com/trigger/',
+        'http_errors' => false,
+        'headers' => [
+            'accept' => 'application/json',
+        ],
+    ]);
+});
+
+$container['app.services.lifx_client'] = $container->factory(function($container) {
+    return new GuzzleHttp\Client([
+        'base_uri' => 'https://api.lifx.com/v1/',
+        'http_errors' => false,
+        'headers' => [
+            'Authorization' => 'Bearer ' . $container->config['ifttt']['token'],
+        ],
+    ]);
+});
+
 /*
  * IFTTT Service.
  *
@@ -46,9 +66,9 @@ $container['appCommand'] = function () {
  */
 $container['ifttt'] = function ($container) {
     $config = $container->config['ifttt'];
-    $ifttt = new App\Services\Ifttt\Ifttt($config);
-
-    return $ifttt;
+    $client = $container->get('app.services.ifttt_client');
+    
+    return new App\Services\Ifttt\Ifttt($config, $client);
 };
 
 /*
@@ -59,7 +79,22 @@ $container['ifttt'] = function ($container) {
  */
 $container['lifx'] = function ($container) {
     $config = $container->config['lifx'];
-    $lifx = new App\Services\Lifx\Lifx($config);
+    $client = $container->get('app.services.lifx_client');
 
-    return $lifx;
+    return new App\Services\Lifx\Lifx($config, $client);
+};
+
+$container['app.controller.ifttt'] = function($container) {
+    $appCommand = $container->get('lifx');
+    $lifx = $container->get('lifx');
+    $ifttt = $container-get('ifttt');
+
+    return new App\Controllers\IftttController($appCommand, $lifx, $ifttt);
+};
+
+
+$container['app.controller.plex'] = function($container) {
+    $lifx = $container->get('lifx');
+
+    return new App\Controllers\PlexController();
 };
