@@ -35,16 +35,18 @@ You can hack up the IFTTT and LIFX API wrappers as needed, they're located in th
 In the `routes/routes.php` you'll see the two endpoints:
 
 ```
-$app->post('/webhook/ifttt', function (Request $request, Response $response) {
-    ...
-});
-
-$app->post('/webhook/plex', function (Request $request, Response $response) {
-    ...
+$app->group('/webhook', function () use ($app) {
+    // IFTTT
+    $app->post('/ifttt', 'app.controller.ifttt')
+        ->add('app.middleware.verify_ifttt_webhook');
+    
+    // Plex
+    $app->post('/plex', 'app.controller.plex')
+        ->add('app.middleware.verify_plex_webhook');
 });
 ```
 
-These routes handle the commands sent by Plex webhooks or IFTTT applets. The IFTTT commands must be structured like this in order to pass schema validation (see the IFTTT middleware):
+These routes handle the commands sent by Plex webhooks or IFTTT applets. The IFTTT commands must be structured like this in order to pass schema validation (see `app/Middleware/VerifyIftttWebhook.php`):
 
 ```
 {
@@ -54,7 +56,7 @@ These routes handle the commands sent by Plex webhooks or IFTTT applets. The IFT
 }
 ```
 
-So, for example, if I want to activate movie time, I tell my Google Assistant: "It's movie time.", and it triggers the IFTTT webhook for movie time, which is processed here:
+So, for example, if I want to activate movie time, I tell my Google Assistant: "It's movie time.", and it triggers the IFTTT webhook for movie time, handled in `app/Controllers/IftttController.php`:
 
 ```
 // Handle home events
@@ -75,7 +77,7 @@ if ($payload->event === 'home_command') {
 }
 ```
 
-Plex sends its payloads as JSON in a URL encoded POST request, so we need to run `json_decode()` on the `payload` after we receive it. The Plex middleware validates the Plex payloads, which look like this:
+Plex sends its payloads as JSON in a URL encoded POST request, so we need to run `json_decode()` on the `payload` after we receive it. The Plex middleware (see `app/Middleware/VerifyPlexWebhook.php`) validates the Plex payloads, which look like this:
 
 ```
 {
@@ -126,7 +128,7 @@ Plex sends its payloads as JSON in a URL encoded POST request, so we need to run
 }
 ```
 
-So if I press play on a movie in Plex the webhook will be handled here:
+Pressing play on a movie or show in Plex sends a webhook to our `webhook/plex` endpoint which, if it passed validation, is handled in `app/Controllers/PlexController.php`:
 
 ```
 // Handle the Play event
@@ -142,4 +144,4 @@ As you can see this is pretty straightforward to use and is easily extensible.
 
 Have fun!
 
-Pull requests suggestions are welcome.
+Pull requests and suggestions are welcome.

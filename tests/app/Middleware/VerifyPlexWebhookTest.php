@@ -87,11 +87,13 @@ class VerifyPlexWebhookTest extends TestCase
 
         $payload = [
             'payload' => json_encode([
+                'event' => 'media.play',
                 'Player' => [
                     'uuid' => 'test',
                 ],
                 'Metadata' => [
                     'librarySectionType' => 'test',
+                    'title' => 'test',
                 ],
             ]),
         ];
@@ -127,11 +129,13 @@ class VerifyPlexWebhookTest extends TestCase
 
         $payload = [
             'payload' => json_encode([
+                'event' => 'media.play',
                 'Player' => [
                     'uuid' => 'test',
                 ],
                 'Metadata' => [
                     'librarySectionType' => 'test',
+                    'title' => 'test',
                 ],
             ]),
         ];
