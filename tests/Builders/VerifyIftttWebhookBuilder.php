@@ -59,11 +59,6 @@ class VerifyIftttWebhookBuilder extends TestCase
 
     public function build()
     {
-        $container = (object) [];
-        $container->logger = $this->logger;
-        $container->config = $this->config;
-        $container->validator = $this->validator;
-
-        return new VerifyIftttWebhook($container);
+        return new VerifyIftttWebhook($this->logger, $this->config, $this->validator);
     }
 }

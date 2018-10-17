@@ -53,11 +53,6 @@ class VerifyPlexWebhookBuilder extends TestCase
 
     public function build()
     {
-        $container = (object)[];
-        $container->logger = $this->logger;
-        $container->config = $this->config;
-        $container->validator = $this->validator;
-
-        return new VerifyPlexWebhook($container);
+        return new VerifyPlexWebhook($this->logger, $this->config, $this->validator);
     }
 }
