@@ -2,13 +2,13 @@
 
 namespace Test\App\Middleware;
 
-use App\Middleware\VerifyPlexWebhook;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Test\Builders\VerifyPlexWebhookBuilder;
 use PHPUnit\Framework\TestCase;
+use App\Middleware\VerifyPlexWebhook;
+use Test\Builders\VerifyPlexWebhookBuilder;
 
-class VerifyPlexWebhookTest extends TestCase
+class VerifyIftttWebhookTest extends TestCase
 {
     public function setUp()
     {
@@ -19,7 +19,7 @@ class VerifyPlexWebhookTest extends TestCase
             ->getMock();
     }
 
-    public function testInstanciation()
+    public function testInstantiation()
     {
         $verifyPlexWebhook = $this->builder->withConfig(['plex' => []])
             ->withMonologStub()
@@ -80,7 +80,7 @@ class VerifyPlexWebhookTest extends TestCase
                 ],
                 'Metadata' => [
                     'librarySectionType' => 'test',
-                ]
+                ],
             ]),
         ];
 
@@ -117,7 +117,7 @@ class VerifyPlexWebhookTest extends TestCase
                 ],
                 'Metadata' => [
                     'librarySectionType' => 'test',
-                ]
+                ],
             ]),
         ];
 

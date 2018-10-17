@@ -2,20 +2,20 @@
 
 namespace Test\App\Middleware;
 
-use App\Middleware\VerifyIftttWebhook;
-use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use PHPUnit\Framework\TestCase;
+use App\Middleware\VerifyIftttWebhook;
 use Test\Builders\VerifyIftttWebhookBuilder;
 
-class VerifyIftttWebhookTest extends TestCase
+class PlexControllerTest extends TestCase
 {
     public function setUp()
     {
         $this->builder = new VerifyIftttWebhookBuilder();
     }
 
-    public function testInstanciation()
+    public function testInstantiation()
     {
         $verifyIftttWebhook = $this->builder->withConfig(['ifttt' => []])
             ->withMonologStub()

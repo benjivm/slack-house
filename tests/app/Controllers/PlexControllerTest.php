@@ -34,7 +34,7 @@ class PlexControllerTest extends TestCase
             ]);
     }
 
-    public function testInstanciation()
+    public function testInstantiation()
     {
         $this->assertInstanceOf(PlexController::class, $this->plexController);
     }

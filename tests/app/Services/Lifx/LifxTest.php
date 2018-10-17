@@ -2,11 +2,11 @@
 
 namespace Test\App\Services\Lifx;
 
-use App\Services\Lifx\Lifx;
 use GuzzleHttp\Client;
+use App\Services\Lifx\Lifx;
 use PHPUnit\Framework\TestCase;
 
-class LifxTest extends TestCase
+class VerifyPlexWebhookTest extends TestCase
 {
     public function setUp()
     {
@@ -14,7 +14,7 @@ class LifxTest extends TestCase
             ->getMock();
     }
 
-    public function testInstanciation()
+    public function testInstantiation()
     {
         $lifx = new Lifx([], $this->client);
 
