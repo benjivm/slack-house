@@ -11,8 +11,5 @@ $app = new Slim\App($config);
 // Register dependencies
 require base_path('config/dependencies.php');
 
-// Register middleware
-require base_path('config/middleware.php');
-
 // Register routes
 require base_path('routes/routes.php');

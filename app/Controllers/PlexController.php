@@ -7,11 +7,22 @@ use Slim\Http\Response;
 
 class PlexController
 {
+    /**
+     * PlexController constructor.
+     *
+     * @param $lifx
+     */
     public function __construct($lifx)
     {
         $this->lifx = $lifx;
     }
 
+    /**
+     * @param Request  $request
+     * @param Response $response
+     *
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response)
     {
         $payload = $request->getParsedBody();

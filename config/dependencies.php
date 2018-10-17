@@ -38,7 +38,7 @@ $container['appCommand'] = function () {
     return new App\Interfaces\AppCommandInterface();
 };
 
-$container['app.services.ifttt_client'] = $container->factory(function($container) {
+$container['app.services.ifttt_client'] = $container->factory(function () {
     return new GuzzleHttp\Client([
         'base_uri' => 'https://maker.ifttt.com/trigger/',
         'http_errors' => false,
@@ -48,34 +48,34 @@ $container['app.services.ifttt_client'] = $container->factory(function($containe
     ]);
 });
 
-$container['app.services.lifx_client'] = $container->factory(function($container) {
+$container['app.services.lifx_client'] = $container->factory(function ($container) {
     return new GuzzleHttp\Client([
         'base_uri' => 'https://api.lifx.com/v1/',
         'http_errors' => false,
         'headers' => [
-            'Authorization' => 'Bearer ' . $container->config['ifttt']['token'],
+            'Authorization' => 'Bearer ' . $container->config['ifttt']['key'],
         ],
     ]);
 });
 
-$container['app.services.validator'] = $container->factory(function($container) {
+$container['app.services.validator'] = $container->factory(function () {
     return new JsonSchema\Validator();
 });
 
-$container['app.middleware.verify_ifttt_webhook'] = function($container) {
-    $logger = $container->get('logger');
-    $config = $container->get('config');
-    $validator = $container->get('app.services.validator');
-
-    return new App\Middleware\VerifyPlexWebhook($logger, $config, $validator);
-};
-
-$container['app.middleware.verify_plex_webhook'] = function($container) {
+$container['app.middleware.verify_ifttt_webhook'] = function ($container) {
     $logger = $container->get('logger');
     $config = $container->get('config');
     $validator = $container->get('app.services.validator');
 
     return new App\Middleware\VerifyIftttWebhook($logger, $config, $validator);
+};
+
+$container['app.middleware.verify_plex_webhook'] = function ($container) {
+    $logger = $container->get('logger');
+    $config = $container->get('config');
+    $validator = $container->get('app.services.validator');
+
+    return new App\Middleware\VerifyPlexWebhook($logger, $config, $validator);
 };
 
 /*
@@ -104,16 +104,19 @@ $container['lifx'] = function ($container) {
     return new App\Services\Lifx\Lifx($config, $client);
 };
 
-$container['app.controller.ifttt'] = function($container) {
-    $appCommand = $container->get('lifx');
+/*
+ * Controllers
+ */
+$container['app.controller.ifttt'] = function ($container) {
+    $appCommand = $container->get('appCommand');
     $lifx = $container->get('lifx');
-    $ifttt = $container-get('ifttt');
+    $ifttt = $container->get('ifttt');
 
     return new App\Controllers\IftttController($appCommand, $lifx, $ifttt);
 };
 
-$container['app.controller.plex'] = function($container) {
+$container['app.controller.plex'] = function ($container) {
     $lifx = $container->get('lifx');
 
-    return new App\Controllers\PlexController();
+    return new App\Controllers\PlexController($lifx);
 };

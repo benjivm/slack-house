@@ -11,22 +11,13 @@ class Ifttt
     /**
      * IFTTT constructor.
      *
-     * @param array $config
+     * @param array  $config
+     * @param Client $client
      */
     public function __construct(array $config, Client $client)
     {
         $this->config = $config;
         $this->client = $client;
-
-        /*
-        $this->client = new Client([
-            'base_uri' => 'https://maker.ifttt.com/trigger/',
-            'http_errors' => false,
-            'headers' => [
-                'accept' => 'application/json',
-            ],
-        ]);
-        */
     }
 
     /**

@@ -1,8 +1,5 @@
 <?php
 
-use App\Controllers\IftttController;
-use App\Controllers\PlexController;
-
 $app->group('/webhook', function () use ($app) {
     /*
     * Handle IFTTT webhooks.

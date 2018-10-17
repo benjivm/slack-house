@@ -3,20 +3,20 @@
 namespace App\Services\Ifttt;
 
 use GuzzleHttp\Client;
-use App\Services\Ifttt\Ifttt;
 use PHPUnit\Framework\TestCase;
 
-class IftttTest extends TestCase
+class IftttServiceTest extends TestCase
 {
-    private $config;
-
     public function setUp()
     {
         $this->client = $this->getMockBuilder(Client::class)
             ->getMock();
     }
 
-    public function testCreatingIftttServiceInstance()
+    /**
+     * @test
+     */
+    public function the_ifttt_service_is_instantiated()
     {
         $ifttt = new Ifttt([], $this->client);
 

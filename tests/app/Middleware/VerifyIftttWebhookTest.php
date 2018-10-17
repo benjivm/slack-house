@@ -8,14 +8,17 @@ use PHPUnit\Framework\TestCase;
 use App\Middleware\VerifyIftttWebhook;
 use Test\Builders\VerifyIftttWebhookBuilder;
 
-class PlexControllerTest extends TestCase
+class VerifyIftttWebhookTest extends TestCase
 {
     public function setUp()
     {
         $this->builder = new VerifyIftttWebhookBuilder();
     }
 
-    public function testInstantiation()
+    /**
+     * @test
+     */
+    public function the_verify_ifttt_webhook_class_is_instantiated()
     {
         $verifyIftttWebhook = $this->builder->withConfig(['ifttt' => []])
             ->withMonologStub()
@@ -25,7 +28,10 @@ class PlexControllerTest extends TestCase
         $this->assertInstanceOf(VerifyIftttWebhook::class, $verifyIftttWebhook);
     }
 
-    public function testSchemaIsInvalid()
+    /**
+     * @test
+     */
+    public function invalid_payloads_do_not_pass_validation()
     {
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -42,7 +48,10 @@ class PlexControllerTest extends TestCase
         $this->assertEquals(422, $response->getStatusCode());
     }
 
-    public function testIftttKeyMakerValidation()
+    /**
+     * @test
+     */
+    public function invalid_maker_keys_fail()
     {
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()

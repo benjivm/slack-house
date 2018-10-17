@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use App\Middleware\VerifyPlexWebhook;
 use Test\Builders\VerifyPlexWebhookBuilder;
 
-class VerifyIftttWebhookTest extends TestCase
+class VerifyPlexWebhookTest extends TestCase
 {
     public function setUp()
     {
@@ -19,7 +19,10 @@ class VerifyIftttWebhookTest extends TestCase
             ->getMock();
     }
 
-    public function testInstantiation()
+    /**
+     * @test
+     */
+    public function the_verify_plex_webhook_class_is_instantiated()
     {
         $verifyPlexWebhook = $this->builder->withConfig(['plex' => []])
             ->withMonologStub()
@@ -29,7 +32,10 @@ class VerifyIftttWebhookTest extends TestCase
         $this->assertInstanceOf(VerifyPlexWebhook::class, $verifyPlexWebhook);
     }
 
-    public function testReturnReponseWhenHookDisabled()
+    /**
+     * @test
+     */
+    public function plex_commands_fail_while_webhooks_are_disabled()
     {
         $config = [
             'plex' => ['webhooks' => 'disabled'],
@@ -46,7 +52,10 @@ class VerifyIftttWebhookTest extends TestCase
         $this->assertEquals(500, $response->getStatusCode());
     }
 
-    public function testRequestSchemaValidation()
+    /**
+     * @test
+     */
+    public function invalid_payloads_do_not_pass_validation()
     {
         $config = [
             'plex' => ['webhooks' => 'enabled'],
@@ -63,7 +72,10 @@ class VerifyIftttWebhookTest extends TestCase
         $this->assertEquals(422, $response->getStatusCode());
     }
 
-    public function testErrorResponsePlayerIsNotAllowed()
+    /**
+     * @test
+     */
+    public function invalid_players_fail()
     {
         $config = [
             'plex' => [
@@ -100,7 +112,10 @@ class VerifyIftttWebhookTest extends TestCase
         $this->assertEquals(401, $response->getStatusCode());
     }
 
-    public function testErrorResponseTypeIsNotAllowed()
+    /**
+     * @test
+     */
+    public function invalid_media_types_fail()
     {
         $config = [
             'plex' => [

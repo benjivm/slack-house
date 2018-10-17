@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use App\Services\Lifx\Lifx;
 use PHPUnit\Framework\TestCase;
 
-class VerifyPlexWebhookTest extends TestCase
+class LifxServiceTest extends TestCase
 {
     public function setUp()
     {
@@ -14,7 +14,10 @@ class VerifyPlexWebhookTest extends TestCase
             ->getMock();
     }
 
-    public function testInstantiation()
+    /**
+     * @test
+     */
+    public function the_lifx_service_is_instantiated()
     {
         $lifx = new Lifx([], $this->client);
 

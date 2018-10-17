@@ -8,7 +8,8 @@
     "symfony/dotenv": "^4.1",
     "monolog/monolog": "^1.23",
     "lefuturiste/monolog-discord-handler": "^0.1.2",
-    "phpunit/phpunit": "^7.4"
+    "phpunit/phpunit": "^7.4",
+    "ext-json": "*"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.1"

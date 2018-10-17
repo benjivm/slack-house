@@ -11,22 +11,13 @@ class Lifx
     /**
      * LIFX constructor.
      *
-     * @param array $config
+     * @param array  $config
+     * @param Client $client
      */
     public function __construct(array $config, Client $client)
     {
         $this->config = $config;
         $this->client = $client;
-
-        /*
-        $this->client = new Guzzle([
-            'base_uri' => 'https://api.lifx.com/v1/',
-            'http_errors' => false,
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->config['token'],
-            ],
-        ]);
-        */
     }
 
     /**
@@ -113,8 +104,8 @@ class Lifx
      * Activate a scene.
      *
      * @param string $sceneName
-     * @param int $duration
-     * @param array $overrides
+     * @param int    $duration
+     * @param array  $overrides
      */
     public function activateScene(string $sceneName, int $duration = 1, array $overrides = [])
     {

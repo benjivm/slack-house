@@ -1,9 +1,11 @@
 <?php
 
-use App\Controllers\PlexController;
-use PHPUnit\Framework\TestCase;
+namespace Test\App\Controllers;
+
 use Slim\Http\Request;
 use Slim\Http\Response;
+use PHPUnit\Framework\TestCase;
+use App\Controllers\PlexController;
 use Test\Builders\PlexControllerBuilder;
 
 class PlexControllerTest extends TestCase
@@ -29,17 +31,23 @@ class PlexControllerTest extends TestCase
     {
         $this->request->expects($this->once())
             ->method('getParsedBody')
-            ->willReturn((object)[
+            ->willReturn((object) [
                 'event' => $event,
             ]);
     }
 
-    public function testInstantiation()
+    /**
+     * @test
+     */
+    public function the_plex_controller_is_instantiated()
     {
         $this->assertInstanceOf(PlexController::class, $this->plexController);
     }
 
-    public function testMediaPlay()
+    /**
+     * @test
+     */
+    public function event_media_play_succeeds()
     {
         $this->defineRequestEvent('media.play');
 
@@ -49,7 +57,10 @@ class PlexControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testMediaPause()
+    /**
+     * @test
+     */
+    public function event_media_pause_succeeds()
     {
         $this->defineRequestEvent('media.pause');
 
@@ -59,7 +70,10 @@ class PlexControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testMediaResume()
+    /**
+     * @test
+     */
+    public function event_media_resume_succeeds()
     {
         $this->defineRequestEvent('media.resume');
 
@@ -69,7 +83,10 @@ class PlexControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testMediaStop()
+    /**
+     * @test
+     */
+    public function event_media_stop_succeeds()
     {
         $this->defineRequestEvent('media.stop');
 

@@ -2,8 +2,6 @@
 
 namespace App\Middleware;
 
-use JsonSchema\Validator;
-
 class VerifyIftttWebhook
 {
     private $logger;
@@ -12,6 +10,13 @@ class VerifyIftttWebhook
 
     private $validator;
 
+    /**
+     * VerifyIftttWebhook constructor.
+     *
+     * @param $logger
+     * @param $config
+     * @param $validator
+     */
     public function __construct($logger, $config, $validator)
     {
         $this->logger = $logger;
@@ -41,7 +46,7 @@ class VerifyIftttWebhook
 
         // Validate the JSON payload against the IFTTT schema
         // Log and fail otherwise
-        if (!$this->validator->isValid()) {
+        if (! $this->validator->isValid()) {
             $this->logger->warning("\n[RESULT] Invalid payload.");
 
             return $response->withJson('Invalid payload.', 422);

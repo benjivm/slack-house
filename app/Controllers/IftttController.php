@@ -13,6 +13,13 @@ class IftttController
 
     private $ifttt;
 
+    /**
+     * IftttController constructor.
+     *
+     * @param $appCommand
+     * @param $lifx
+     * @param $ifttt
+     */
     public function __construct($appCommand, $lifx, $ifttt)
     {
         $this->appCommand = $appCommand;
@@ -20,9 +27,16 @@ class IftttController
         $this->ifttt = $ifttt;
     }
 
+    /**
+     * @param Request  $request
+     * @param Response $response
+     *
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response)
     {
         $payload = $request->getParsedBody();
+        
         // Handle app events
         if ($payload->event === 'app_command') {
             // Enable plex webhooks
