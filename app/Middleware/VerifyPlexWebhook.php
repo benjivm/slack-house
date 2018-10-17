@@ -87,10 +87,19 @@ class VerifyPlexWebhook
     private function log($request)
     {
         $routeInfo = $request->getAttribute('routeInfo')['request'];
-        $payload = $request->getParsedBody()['payload'];
+        $payload = json_decode($request->getParsedBody()['payload'], true);
 
-        $message = sprintf("\n[%s] %s\n[PAYLOAD]\n%s", $routeInfo[0], $routeInfo[1], $payload);
+        $minimalPayload = json_encode([
+            'event' => $payload['event'],
+            'Player' => $payload['Player'],
+            'Metadata' => [
+                'title' => $payload['Metadata']['title'],
+            ],
+        ], JSON_PRETTY_PRINT);
+
+        $message = sprintf("\n[%s] %s\n[PAYLOAD]\n%s", $routeInfo[0], $routeInfo[1], $minimalPayload);
 
         $this->logger->info($message);
+
     }
 }
