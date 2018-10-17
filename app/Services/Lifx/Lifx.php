@@ -2,7 +2,7 @@
 
 namespace App\Services\Lifx;
 
-use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\Client;
 
 class Lifx
 {
@@ -13,10 +13,12 @@ class Lifx
      *
      * @param array $config
      */
-    public function __construct(array $config)
+    public function __construct(array $config, Client $client)
     {
         $this->config = $config;
+        $this->client = $client;
 
+        /*
         $this->client = new Guzzle([
             'base_uri' => 'https://api.lifx.com/v1/',
             'http_errors' => false,
@@ -24,6 +26,7 @@ class Lifx
                 'Authorization' => 'Bearer ' . $this->config['token'],
             ],
         ]);
+        */
     }
 
     /**

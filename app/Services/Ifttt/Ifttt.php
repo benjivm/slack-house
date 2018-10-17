@@ -13,10 +13,12 @@ class Ifttt
      *
      * @param array $config
      */
-    public function __construct(array $config)
+    public function __construct(array $config, Client $client)
     {
         $this->config = $config;
+        $this->client = $client;
 
+        /*
         $this->client = new Client([
             'base_uri' => 'https://maker.ifttt.com/trigger/',
             'http_errors' => false,
@@ -24,6 +26,7 @@ class Ifttt
                 'accept' => 'application/json',
             ],
         ]);
+        */
     }
 
     /**
