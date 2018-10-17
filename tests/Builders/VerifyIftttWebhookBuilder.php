@@ -2,10 +2,10 @@
 
 namespace Test\Builders;
 
-use App\Middleware\VerifyIftttWebhook;
-use JsonSchema\Validator;
 use Monolog\Logger;
+use JsonSchema\Validator;
 use PHPUnit\Framework\TestCase;
+use App\Middleware\VerifyIftttWebhook;
 
 class VerifyIftttWebhookBuilder extends TestCase
 {
@@ -48,7 +48,7 @@ class VerifyIftttWebhookBuilder extends TestCase
         return $this;
     }
 
-    public function withValidatonPassed()
+    public function withValidationPassed()
     {
         $this->validator->expects($this->once())
             ->method('isValid')

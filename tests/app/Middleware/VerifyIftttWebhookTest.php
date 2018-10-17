@@ -68,7 +68,7 @@ class VerifyIftttWebhookTest extends TestCase
         $verifyIftttWebhook = $this->builder->withConfig($config)
             ->withMonologStub()
             ->withValidatorStub()
-            ->withValidatonPassed()
+            ->withValidationPassed()
             ->build();
 
         $response = $verifyIftttWebhook($request, new Response(), null);

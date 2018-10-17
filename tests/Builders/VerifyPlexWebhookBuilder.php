@@ -2,10 +2,10 @@
 
 namespace Test\Builders;
 
-use App\Middleware\VerifyPlexWebhook;
-use JsonSchema\Validator;
 use Monolog\Logger;
+use JsonSchema\Validator;
 use PHPUnit\Framework\TestCase;
+use App\Middleware\VerifyPlexWebhook;
 
 class VerifyPlexWebhookBuilder extends TestCase
 {
@@ -42,7 +42,7 @@ class VerifyPlexWebhookBuilder extends TestCase
         return $this;
     }
 
-    public function withValidatonPassed()
+    public function withValidationPassed()
     {
         $this->validator->expects($this->once())
             ->method('isValid')

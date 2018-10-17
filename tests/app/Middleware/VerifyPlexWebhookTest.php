@@ -103,7 +103,7 @@ class VerifyPlexWebhookTest extends TestCase
         $verifyPlexWebhook = $this->builder->withConfig($config)
             ->withMonologStub()
             ->withValidatorStub()
-            ->withValidatonPassed()
+            ->withValidationPassed()
             ->build();
 
         $response = $verifyPlexWebhook($this->request, new Response(), null);
@@ -143,7 +143,7 @@ class VerifyPlexWebhookTest extends TestCase
         $verifyPlexWebhook = $this->builder->withConfig($config)
             ->withMonologStub()
             ->withValidatorStub()
-            ->withValidatonPassed()
+            ->withValidationPassed()
             ->build();
 
         $response = $verifyPlexWebhook($this->request, new Response(), null);
