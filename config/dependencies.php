@@ -53,7 +53,7 @@ $container['app.services.lifx_client'] = $container->factory(function ($containe
         'base_uri' => 'https://api.lifx.com/v1/',
         'http_errors' => false,
         'headers' => [
-            'Authorization' => 'Bearer ' . $container->config['ifttt']['key'],
+            'Authorization' => 'Bearer ' . $container->config['lifx']['token'],
         ],
     ]);
 });

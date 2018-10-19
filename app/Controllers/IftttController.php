@@ -36,7 +36,7 @@ class IftttController
     public function __invoke(Request $request, Response $response)
     {
         $payload = $request->getParsedBody();
-        
+
         // Handle app events
         if ($payload->event === 'app_command') {
             // Enable plex webhooks
