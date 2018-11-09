@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Ifttt;
+namespace App\Services;
 
 use GuzzleHttp\Client;
 

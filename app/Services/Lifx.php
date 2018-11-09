@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Lifx;
+namespace App\Services;
 
 use GuzzleHttp\Client;
 

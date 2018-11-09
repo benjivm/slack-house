@@ -88,7 +88,7 @@ $container['ifttt'] = function ($container) {
     $config = $container->config['ifttt'];
     $client = $container->get('app.services.ifttt_client');
     
-    return new App\Services\Ifttt\Ifttt($config, $client);
+    return new App\Services\Ifttt($config, $client);
 };
 
 /*
@@ -101,7 +101,7 @@ $container['lifx'] = function ($container) {
     $config = $container->config['lifx'];
     $client = $container->get('app.services.lifx_client');
 
-    return new App\Services\Lifx\Lifx($config, $client);
+    return new App\Services\Lifx($config, $client);
 };
 
 /*

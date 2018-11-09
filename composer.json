@@ -4,12 +4,12 @@
     "guzzlehttp/guzzle": "^6.3",
     "justinrainbow/json-schema": "^5.2",
     "symfony/console": "^4.1",
-    "gmask/config-generator": "^0.0",
     "symfony/dotenv": "^4.1",
     "monolog/monolog": "^1.23",
     "lefuturiste/monolog-discord-handler": "^0.1.2",
     "phpunit/phpunit": "^7.4",
-    "ext-json": "*"
+    "ext-json": "*",
+    "symfony/yaml": "^4.1"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.1"
