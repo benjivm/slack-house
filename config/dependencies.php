@@ -3,7 +3,7 @@
 $container = $app->getContainer();
 
 /*
- * Slackhouse config.
+ * Slackhouse configuration.
  *
  * @return array
  */
@@ -38,6 +38,12 @@ $container['appCommand'] = function () {
     return new App\Interfaces\AppCommandInterface();
 };
 
+/*
+ * The IFTTT API client.
+ *
+ * @return \GuzzleHttp\Client
+ */
+
 $container['app.services.ifttt_client'] = $container->factory(function () {
     return new GuzzleHttp\Client([
         'base_uri' => 'https://maker.ifttt.com/trigger/',
@@ -48,6 +54,11 @@ $container['app.services.ifttt_client'] = $container->factory(function () {
     ]);
 });
 
+/*
+ * The LIFX API client.
+ *
+ * @return \GuzzleHttp\Client
+ */
 $container['app.services.lifx_client'] = $container->factory(function ($container) {
     return new GuzzleHttp\Client([
         'base_uri' => 'https://api.lifx.com/v1/',
@@ -58,10 +69,20 @@ $container['app.services.lifx_client'] = $container->factory(function ($containe
     ]);
 });
 
+/*
+ * JSON validator.
+ *
+ * @return \JsonSchema\Validator
+ */
 $container['app.services.validator'] = $container->factory(function () {
     return new JsonSchema\Validator();
 });
 
+/*
+ * IFTTT middleware.
+ *
+ * @return \App\Middleware\VerifyIftttWebhook
+ */
 $container['app.middleware.verify_ifttt_webhook'] = function ($container) {
     $logger = $container->get('logger');
     $config = $container->get('config');
@@ -70,6 +91,11 @@ $container['app.middleware.verify_ifttt_webhook'] = function ($container) {
     return new App\Middleware\VerifyIftttWebhook($logger, $config, $validator);
 };
 
+/*
+ * Plex middleware.
+ *
+ * @return \App\Middleware\VerifyPlexWebhook
+ */
 $container['app.middleware.verify_plex_webhook'] = function ($container) {
     $logger = $container->get('logger');
     $config = $container->get('config');
@@ -79,10 +105,9 @@ $container['app.middleware.verify_plex_webhook'] = function ($container) {
 };
 
 /*
- * IFTTT Service.
+ * The IFTTT service.
  *
- * @param $container
- * @return \App\Services\Ifttt\Ifttt
+ * @return \App\Services\Ifttt
  */
 $container['ifttt'] = function ($container) {
     $config = $container->config['ifttt'];
@@ -92,10 +117,9 @@ $container['ifttt'] = function ($container) {
 };
 
 /*
- * LIFX Service.
+ * The LIFX service.
  *
- * @param $container
- * @return \App\Services\Lifx\Lifx
+ * @return \App\Services\Ifttt
  */
 $container['lifx'] = function ($container) {
     $config = $container->config['lifx'];

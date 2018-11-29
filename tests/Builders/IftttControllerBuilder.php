@@ -2,11 +2,11 @@
 
 namespace Test\Builders;
 
+use App\Services\Lifx;
+use App\Services\Ifttt;
+use PHPUnit\Framework\TestCase;
 use App\Controllers\IftttController;
 use App\Interfaces\AppCommandInterface;
-use App\Services\Ifttt;
-use App\Services\Lifx;
-use PHPUnit\Framework\TestCase;
 
 class IftttControllerBuilder extends TestCase
 {
