@@ -4,8 +4,8 @@ namespace Test\Builders;
 
 use App\Controllers\IftttController;
 use App\Interfaces\AppCommandInterface;
-use App\Services\Ifttt\Ifttt;
-use App\Services\Lifx\Lifx;
+use App\Services\Ifttt;
+use App\Services\Lifx;
 use PHPUnit\Framework\TestCase;
 
 class IftttControllerBuilder extends TestCase

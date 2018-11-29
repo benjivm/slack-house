@@ -3,7 +3,7 @@
 namespace Test\Builders;
 
 use App\Controllers\PlexController;
-use App\Services\Lifx\Lifx;
+use App\Services\Lifx;
 use PHPUnit\Framework\TestCase;
 
 class PlexControllerBuilder extends TestCase

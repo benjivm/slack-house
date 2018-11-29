@@ -2,6 +2,7 @@
 
 namespace App\Services\Ifttt;
 
+use App\Services\Ifttt;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 

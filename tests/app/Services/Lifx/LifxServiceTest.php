@@ -3,7 +3,7 @@
 namespace Test\App\Services\Lifx;
 
 use GuzzleHttp\Client;
-use App\Services\Lifx\Lifx;
+use App\Services\Lifx;
 use PHPUnit\Framework\TestCase;
 
 class LifxServiceTest extends TestCase
