@@ -12,7 +12,8 @@
     "symfony/yaml": "^4.1"
   },
   "require-dev": {
-    "symfony/var-dumper": "^4.1"
+    "symfony/var-dumper": "^4.1",
+    "codedungeon/phpunit-result-printer": "^0.23.4"
   },
   "scripts": {
     "test": "phpunit"  
