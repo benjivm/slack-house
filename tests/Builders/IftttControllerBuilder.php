@@ -19,6 +19,7 @@ class IftttControllerBuilder extends TestCase
     public function withAppCommandStub()
     {
         $this->appCommand = $this->getMockBuilder(AppCommandInterface::class)
+            ->disableOriginalConstructor()
             ->getMock();
 
         return $this;

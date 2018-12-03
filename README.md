@@ -17,8 +17,8 @@ The only endpoint that must be accessible outside your private network is `/webh
 - Create an [Apache](https://httpd.apache.org/docs/2.4/vhosts/examples.html) or [Nginx](https://www.nginx.com/resources/wiki/start/topics/examples/full/) host file for the app (**important**: the document root should be `/public`)
 - Clone or download the repo to the appropriate directory you setup in the previous step (again, ensure the `/public` directory is your document root)
 - Install dependencies: `composer install --no-dev`
-- Create an `.env` file: `cp .env.example .env` and edit the contents with your desired configuration
-- Now generate your unique configuration file by executing `php slack config:generate` from a terminal. **Note**: The config file is regenerated every time the `slack config:generate` command is called, so do not  edit it directly. Instead, edit the `.env` file and then run the command to save your changes to `config/slackhouse.php`.
+- Create your `settings.ini` file: `cp settings.ini.example settings.ini` and edit the contents with your desired configuration.
+- Now generate your unique configuration file by executing `php slack config:generate` from a terminal. **Note**: The config file (`config/slack-house.json`) will be regenerated every time the `slack config:generate` command is called, so make sure your `settings.ini` file is up-to-date before you run the command, or use the `appCommand` function (see `$this->appCommand(...)` used in `app/Controllers/IftttController.php`).
 
 # Usage
 
@@ -28,7 +28,7 @@ This app interacts primarily with LIFX and Plex, but, in my configuration, throu
 
 There are only two endpoints: `/webhook/plex` and `/webhook/ifttt`, see the `routes/routes.php` file. Both endpoints have their own middleware to handle requests, see `app/Middleware`. 
 
-Plex players that are allowed to trigger events are verified by `UUID` in the `PLEX_PLAYERS` option (see the `VerifyPlexWebhook` middleware file for an example of how this is used). Plex media types allowed to trigger events are listed in the `PLEX_ALLOWED_MEDIA` setting. Both settings can be a single value or a comma separated list of values (e.g., `PLEX_ALLOWED_MEDIA="movie,show"`, or `PLEX_ALLOWED_MEDIA=artist`.)
+Plex players that are allowed to trigger events are verified by `UUID` (obtained from your Plex server's settings page) in the `players[]` ini option (see the `VerifyPlexWebhook` middleware file for an example of how this is used). Plex media types allowed to trigger events are listed in the `allowed_media[]` setting. Both settings can be a single value or a comma separated list of values (e.g., `allowed_media[]=movie`)
 
 You can hack up the IFTTT and LIFX API wrappers as needed, they're located in the `app/Services` directory and use the [Guzzle](https://github.com/guzzle/guzzle) client for requests.
 
@@ -67,8 +67,8 @@ if ($payload->event === 'home_command') {
     // 3. Turn on the Kasa smart plug for the TV, receiver, and speakers
     // 4. Tell Harmony to activate the Shield TV activity
     if ($payload->command === 'activate_movie_time') {
-        $this->commands->changeConfigSetting('PLEX_WEBHOOKS', 'enabled');
-        $this->lifx->activateScene('movieTime', 5);
+        $this->appCommand->changeSetting('plex.webhooks', 'enabled');
+        $this->lifx->activateScene('movie_time', 5);
         $this->ifttt->trigger('turn_tv_plug_on');
         $this->ifttt->trigger('start_shield_activity');
 
@@ -134,7 +134,7 @@ Pressing play on a movie or show in Plex sends a webhook to our `webhook/plex` e
 // Handle the Play event
 if ($payload->event === 'media.play') {
     // Power off all the lights in the LIFX Warm Night scene over 30 seconds
-    $lifx->activateScene('warmNight', 30, ['power' => 'off']);
+    $lifx->activateScene('warm_night', 30, ['power' => 'off']);
 
     return $response->withJson('Play event handled.');
 }

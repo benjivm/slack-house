@@ -22,7 +22,7 @@ class VerifyPlexWebhookTest extends TestCase
     /**
      * @test
      */
-    public function the_verify_plex_webhook_class_is_instantiated()
+    public function theVerifyPlexWebhookClassIsInstantiated()
     {
         $verifyPlexWebhook = $this->builder->withConfig(['plex' => []])
             ->withMonologStub()
@@ -35,7 +35,7 @@ class VerifyPlexWebhookTest extends TestCase
     /**
      * @test
      */
-    public function plex_commands_fail_while_webhooks_are_disabled()
+    public function plexCommandsFailWhileWebhooksAreDisabled()
     {
         $config = [
             'plex' => ['webhooks' => 'disabled'],
@@ -55,7 +55,7 @@ class VerifyPlexWebhookTest extends TestCase
     /**
      * @test
      */
-    public function invalid_payloads_do_not_pass_validation()
+    public function invalidPayloadsDoNotPassValidation()
     {
         $config = [
             'plex' => ['webhooks' => 'enabled'],
@@ -75,13 +75,13 @@ class VerifyPlexWebhookTest extends TestCase
     /**
      * @test
      */
-    public function invalid_players_fail()
+    public function invalidPlayersFail()
     {
         $config = [
             'plex' => [
                 'webhooks' => 'enabled',
                 'players' => ['error'],
-                'allowedMedia' => ['test'],
+                'allowed_media' => ['test'],
             ],
         ];
 
@@ -117,13 +117,13 @@ class VerifyPlexWebhookTest extends TestCase
     /**
      * @test
      */
-    public function invalid_media_types_fail()
+    public function invalidMediaTypesFail()
     {
         $config = [
             'plex' => [
                 'webhooks' => 'enabled',
                 'players' => ['test'],
-                'allowedMedia' => ['error'],
+                'allowed_media' => ['error'],
             ],
         ];
 

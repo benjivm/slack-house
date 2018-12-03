@@ -17,7 +17,7 @@ class IftttServiceTest extends TestCase
     /**
      * @test
      */
-    public function the_ifttt_service_is_instantiated()
+    public function theIftttServiceIsInstantiated()
     {
         $ifttt = new Ifttt([], $this->client);
 

@@ -39,7 +39,7 @@ class PlexControllerTest extends TestCase
     /**
      * @test
      */
-    public function the_plex_controller_is_instantiated()
+    public function thePlexControllerIsInstantiated()
     {
         $this->assertInstanceOf(PlexController::class, $this->plexController);
     }
@@ -47,7 +47,7 @@ class PlexControllerTest extends TestCase
     /**
      * @test
      */
-    public function event_media_play_succeeds()
+    public function eventMediaPlaySucceeds()
     {
         $this->defineRequestEvent('media.play');
 
@@ -60,7 +60,7 @@ class PlexControllerTest extends TestCase
     /**
      * @test
      */
-    public function event_media_pause_succeeds()
+    public function eventMediaPauseSucceeds()
     {
         $this->defineRequestEvent('media.pause');
 
@@ -73,7 +73,7 @@ class PlexControllerTest extends TestCase
     /**
      * @test
      */
-    public function event_media_resume_succeeds()
+    public function eventMediaResumeSucceeds()
     {
         $this->defineRequestEvent('media.resume');
 
@@ -86,7 +86,7 @@ class PlexControllerTest extends TestCase
     /**
      * @test
      */
-    public function event_media_stop_succeeds()
+    public function eventMediaStopSucceeds()
     {
         $this->defineRequestEvent('media.stop');
 

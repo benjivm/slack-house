@@ -41,14 +41,14 @@ class IftttController
         if ($payload->event === 'app_command') {
             // Enable plex webhooks
             if ($payload->command === 'enable_plex_webhooks') {
-                $this->appCommand->changeConfigSetting('PLEX_WEBHOOKS', 'enabled');
+                $this->appCommand->changeSetting('plex.webhooks', 'enabled');
 
                 return $response->withJson('Plex webhooks enabled.');
             }
 
             // Disable plex webhooks
             if ($payload->command === 'disable_plex_webhooks') {
-                $this->appCommand->changeConfigSetting('PLEX_WEBHOOKS', 'disabled');
+                $this->appCommand->changeSetting('plex.webhooks', 'disabled');
 
                 return $response->withJson('Plex webhooks disabled.');
             }
@@ -62,8 +62,8 @@ class IftttController
             // 3. Turn on the Kasa smart plug for the TV, receiver, and speakers
             // 4. Tell Harmony to activate the Shield TV activity
             if ($payload->command === 'activate_movie_time') {
-                $this->appCommand->changeConfigSetting('PLEX_WEBHOOKS', 'enabled');
-                $this->lifx->activateScene('movieTime', 5);
+                $this->appCommand->changeSetting('plex.webhooks', 'enabled');
+                $this->lifx->activateScene('movie_time', 5);
                 $this->ifttt->trigger('turn_tv_plug_on');
                 $this->ifttt->trigger('start_shield_activity');
 

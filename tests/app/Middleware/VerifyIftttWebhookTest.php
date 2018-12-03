@@ -18,7 +18,7 @@ class VerifyIftttWebhookTest extends TestCase
     /**
      * @test
      */
-    public function the_verify_ifttt_webhook_class_is_instantiated()
+    public function theVerifyIftttWebhookClassIsInstantiated()
     {
         $verifyIftttWebhook = $this->builder->withConfig(['ifttt' => []])
             ->withMonologStub()
@@ -31,7 +31,7 @@ class VerifyIftttWebhookTest extends TestCase
     /**
      * @test
      */
-    public function invalid_payloads_do_not_pass_validation()
+    public function invalidPayloadsDoNotPassValidation()
     {
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -51,7 +51,7 @@ class VerifyIftttWebhookTest extends TestCase
     /**
      * @test
      */
-    public function invalid_maker_keys_fail()
+    public function invalidMakerKeysFail()
     {
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()

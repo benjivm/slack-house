@@ -2,30 +2,34 @@
 
 namespace App\Interfaces;
 
-use Symfony\Component\Dotenv\Dotenv;
+use Spatie\Valuestore\Valuestore;
 
 class AppCommandInterface
 {
+    private $config;
+    private $configPath;
+
+    public function __construct($config, $configPath)
+    {
+        $this->config = $config;
+        $this->configPath = $configPath;
+    }
+
     /**
-     * Change a value in the .env file.
+     * Change a value in the settings.ini file.
      *
-     * @param $key
+     * @param $pathToTarget
      * @param $value
      */
-    public function changeConfigSetting($key, $value)
+    public function changeSetting($pathToTarget, $value)
     {
-        $envFile = base_path('.env');
+        $target = &$this->config;
 
-        $dotenv = new Dotenv();
-        $dotenv->load($envFile);
-
-        $oldValue = getenv($key);
-
-        if (file_exists($envFile) && ! empty($oldValue)) {
-            file_put_contents($envFile, str_replace(
-                "$key=" . $oldValue, "$key=" . $value, file_get_contents($envFile)
-            ));
+        foreach (explode('.', $pathToTarget) as $step) {
+            $target = &$target[$step];
         }
+
+        $target = $value;
 
         $this->regenerateConfig();
     }
@@ -35,6 +39,6 @@ class AppCommandInterface
      */
     public function regenerateConfig()
     {
-        shell_exec('php ' . base_path('slack config:generate'));
+        Valuestore::make($this->configPath, $this->config);
     }
 }

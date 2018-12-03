@@ -17,7 +17,7 @@ class LifxServiceTest extends TestCase
     /**
      * @test
      */
-    public function the_lifx_service_is_instantiated()
+    public function theLifxServiceIsInstantiated()
     {
         $lifx = new Lifx([], $this->client);
 

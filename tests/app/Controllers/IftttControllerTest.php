@@ -39,7 +39,7 @@ class IftttControllerTest extends TestCase
     /**
      * @test
      */
-    public function the_ifttt_controller_is_instantiated()
+    public function theIftttControllerIsInstantiated()
     {
         $this->assertInstanceOf(IftttController::class, $this->iftttController);
     }
@@ -47,7 +47,7 @@ class IftttControllerTest extends TestCase
     /**
      * @test
      */
-    public function empty_commands_fail()
+    public function emptyCommandsFail()
     {
         $this->defineRequestEventCommand('', '');
 
@@ -60,7 +60,7 @@ class IftttControllerTest extends TestCase
     /**
      * @test
      */
-    public function app_command_enable_plex_webhooks_succeeds()
+    public function appCommandEnablePlexWebhooksSucceeds()
     {
         $this->defineRequestEventCommand('app_command', 'enable_plex_webhooks');
 
@@ -73,7 +73,7 @@ class IftttControllerTest extends TestCase
     /**
      * @test
      */
-    public function app_command_disable_plex_webhooks_succeeds()
+    public function appCommandDisablePlexWebhooksSucceeds()
     {
         $this->defineRequestEventCommand('app_command', 'disable_plex_webhooks');
 
@@ -86,7 +86,7 @@ class IftttControllerTest extends TestCase
     /**
      * @test
      */
-    public function home_command_activate_movie_time_succeeds()
+    public function homeCommandActivateMovieTimeSucceeds()
     {
         $this->defineRequestEventCommand('home_command', 'activate_movie_time');
 
@@ -99,7 +99,7 @@ class IftttControllerTest extends TestCase
     /**
      * @test
      */
-    public function home_command_activate_bed_time_succeeds()
+    public function homeCommandActivateBedTimeSucceeds()
     {
         $this->defineRequestEventCommand('home_command', 'activate_bed_time');
 

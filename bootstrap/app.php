@@ -2,11 +2,11 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// Load the slim config
-$config = require base_path('config/slim.php');
+// Load Slim config
+$slimConfig = require base_path('config/slim.php');
 
 // Boot the app
-$app = new Slim\App($config);
+$app = new Slim\App($slimConfig);
 
 // Register dependencies
 require base_path('config/dependencies.php');

@@ -1,5 +1,5 @@
 .idea
-config/slackhouse.php
+config/slack-house.json
 vendor/
 logs/*.log
-.env
+settings.ini

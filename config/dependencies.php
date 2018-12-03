@@ -7,10 +7,8 @@ $container = $app->getContainer();
  *
  * @return array
  */
-$container['config'] = function () {
-    $config = require base_path('config/slackhouse.php');
-
-    return $config;
+$container['config'] = function ($container) {
+    return $container->settings['slackHouse'];
 };
 
 /*
@@ -20,11 +18,11 @@ $container['config'] = function () {
  * @return \Monolog\Logger
  */
 $container['logger'] = function ($container) {
-    $settings = $container->settings['logger'];
+    $loggerSettings = $container->settings['logger'];
     $config = $container->config;
 
-    $logger = new Monolog\Logger($settings['name']);
-    $logger->pushHandler(new DiscordHandler\DiscordHandler([$config['discord']['webhookUrl']], 'slack', 'house', 'DEBUG'));
+    $logger = new Monolog\Logger($loggerSettings['name']);
+    $logger->pushHandler(new DiscordHandler\DiscordHandler([$config['discord']['webhook_url']], 'slack', 'house', 'DEBUG'));
 
     return $logger;
 };
@@ -34,8 +32,11 @@ $container['logger'] = function ($container) {
  *
  * @return \App\Interfaces\AppCommandInterface
  */
-$container['appCommand'] = function () {
-    return new App\Interfaces\AppCommandInterface();
+$container['appCommand'] = function ($container) {
+    $config = $container->config;
+    $configPath = base_path('config/slack-house.json');
+
+    return new App\Interfaces\AppCommandInterface($config, $configPath);
 };
 
 /*
@@ -43,7 +44,6 @@ $container['appCommand'] = function () {
  *
  * @return \GuzzleHttp\Client
  */
-
 $container['app.services.ifttt_client'] = $container->factory(function () {
     return new GuzzleHttp\Client([
         'base_uri' => 'https://maker.ifttt.com/trigger/',
