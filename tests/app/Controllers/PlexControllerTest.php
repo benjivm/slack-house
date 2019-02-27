@@ -14,7 +14,7 @@ class PlexControllerTest extends TestCase
 
     private $builder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->builder = new PlexControllerBuilder();
 

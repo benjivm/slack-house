@@ -10,7 +10,7 @@ use Test\Builders\VerifyIftttWebhookBuilder;
 
 class VerifyIftttWebhookTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->builder = new VerifyIftttWebhookBuilder();
     }

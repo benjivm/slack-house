@@ -3,3 +3,4 @@ config/slack-house.json
 vendor/
 logs/*.log
 settings.ini
+.phpunit.result.cache

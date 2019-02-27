@@ -10,7 +10,7 @@ use Test\Builders\VerifyPlexWebhookBuilder;
 
 class VerifyPlexWebhookTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->builder = new VerifyPlexWebhookBuilder();
 
