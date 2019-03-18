@@ -1,13 +1,6 @@
 <?php
 
 /*
- * Greetings.
- */
-$app->get('/', function ($request, Slim\Http\Response $response) {
-    return $response->withJson(['Slack House says' => 'Hello, world!']);
-});
-
-/*
  * App '/webhook' endpoints.
  */
 $app->group('/webhook', function () use ($app) {
@@ -22,4 +15,14 @@ $app->group('/webhook', function () use ($app) {
      */
     $app->post('/plex', 'app.controller.plex')
         ->add('app.middleware.verify_plex_webhook');
+});
+
+/*
+ * Catch unregistered routes.
+ */
+$app->get('/[{path:.*}]', function ($request, $response, $path = null) {
+    return $response->withJson([
+            'error'   => 404,
+            'message' => 'Not found.',
+        ], 404);
 });
