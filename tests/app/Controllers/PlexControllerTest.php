@@ -2,10 +2,10 @@
 
 namespace Test\App\Controllers;
 
+use App\Controllers\PlexController;
+use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use PHPUnit\Framework\TestCase;
-use App\Controllers\PlexController;
 use Test\Builders\PlexControllerBuilder;
 
 class PlexControllerTest extends TestCase

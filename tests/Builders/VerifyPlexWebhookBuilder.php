@@ -2,10 +2,10 @@
 
 namespace Test\Builders;
 
-use Monolog\Logger;
-use JsonSchema\Validator;
-use PHPUnit\Framework\TestCase;
 use App\Middleware\VerifyPlexWebhook;
+use JsonSchema\Validator;
+use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
 
 class VerifyPlexWebhookBuilder extends TestCase
 {
