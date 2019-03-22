@@ -7,6 +7,7 @@ use Spatie\Valuestore\Valuestore;
 class AppCommandInterface
 {
     private $config;
+
     private $configPath;
 
     public function __construct($config, $configPath)

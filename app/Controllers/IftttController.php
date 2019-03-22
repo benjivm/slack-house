@@ -67,7 +67,7 @@ class IftttController
                 $this->ifttt->trigger('turn_tv_plug_on');
                 $this->ifttt->trigger('start_shield_activity');
 
-                return $response->withJson($payload->command.' webhook fired.');
+                return $response->withJson($payload->command . ' webhook fired.');
             }
 
             // Bed time!
@@ -77,10 +77,10 @@ class IftttController
                 $this->ifttt->trigger('turn_tv_plug_off');
                 $this->ifttt->trigger('fade_all_lights_off');
 
-                return $response->withJson($payload->command.' webhook fired.');
+                return $response->withJson($payload->command . ' webhook fired.');
             }
         }
 
-        return $response->withJson($payload->command.' unhandled.', 422);
+        return $response->withJson($payload->command . ' unhandled.', 422);
     }
 }

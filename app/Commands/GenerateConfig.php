@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class GenerateConfig extends Command
 {
     private $inputFile;
+
     private $outputFile;
 
     public function __construct()
