@@ -2,10 +2,10 @@
 
 namespace Test\App\Middleware;
 
+use App\Middleware\VerifyPlexWebhook;
+use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use PHPUnit\Framework\TestCase;
-use App\Middleware\VerifyPlexWebhook;
 use Test\Builders\VerifyPlexWebhookBuilder;
 
 class VerifyPlexWebhookTest extends TestCase
@@ -28,7 +28,7 @@ class VerifyPlexWebhookTest extends TestCase
             ->withMonologStub()
             ->withValidatorStub()
             ->build();
-            
+
         $this->assertInstanceOf(VerifyPlexWebhook::class, $verifyPlexWebhook);
     }
 
@@ -79,21 +79,21 @@ class VerifyPlexWebhookTest extends TestCase
     {
         $config = [
             'plex' => [
-                'webhooks' => 'enabled',
-                'players' => ['error'],
+                'webhooks'      => 'enabled',
+                'players'       => ['error'],
                 'allowed_media' => ['test'],
             ],
         ];
 
         $payload = [
             'payload' => json_encode([
-                'event' => 'media.play',
+                'event'  => 'media.play',
                 'Player' => [
                     'uuid' => 'test',
                 ],
                 'Metadata' => [
                     'librarySectionType' => 'test',
-                    'title' => 'test',
+                    'title'              => 'test',
                 ],
             ]),
         ];
@@ -121,21 +121,21 @@ class VerifyPlexWebhookTest extends TestCase
     {
         $config = [
             'plex' => [
-                'webhooks' => 'enabled',
-                'players' => ['test'],
+                'webhooks'      => 'enabled',
+                'players'       => ['test'],
                 'allowed_media' => ['error'],
             ],
         ];
 
         $payload = [
             'payload' => json_encode([
-                'event' => 'media.play',
+                'event'  => 'media.play',
                 'Player' => [
                     'uuid' => 'test',
                 ],
                 'Metadata' => [
                     'librarySectionType' => 'test',
-                    'title' => 'test',
+                    'title'              => 'test',
                 ],
             ]),
         ];

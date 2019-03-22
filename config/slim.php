@@ -5,12 +5,12 @@ $slackHouseValueStore = Spatie\Valuestore\Valuestore::make(base_path('config/sla
 
 return [
     'settings' => [
-        'displayErrorDetails' => $slackHouseValueStore->get('app')['display_errors'],
+        'displayErrorDetails'    => $slackHouseValueStore->get('app')['display_errors'],
         'addContentLengthHeader' => true,
 
         // Monolog settings
         'logger' => [
-            'name' => 'slackhouse',
+            'name'  => 'slackhouse',
             'level' => \Monolog\Logger::DEBUG,
         ],
 

@@ -42,11 +42,11 @@ class VerifyIftttWebhook
         $payload = (object) $request->getParsedBody();
 
         // Load the IFTTT JSON schema
-        $this->validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/ifttt.json')]);
+        $this->validator->validate($payload, (object) ['$ref' => 'file://'.base_path('config/schema/ifttt.json')]);
 
         // Validate the JSON payload against the IFTTT schema
         // Log and fail otherwise
-        if (! $this->validator->isValid()) {
+        if (!$this->validator->isValid()) {
             $this->logger->warning("\n[RESULT] Invalid payload.");
 
             return $response->withJson('Invalid payload.', 422);

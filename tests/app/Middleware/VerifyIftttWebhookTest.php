@@ -2,10 +2,10 @@
 
 namespace Test\App\Middleware;
 
+use App\Middleware\VerifyIftttWebhook;
+use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use PHPUnit\Framework\TestCase;
-use App\Middleware\VerifyIftttWebhook;
 use Test\Builders\VerifyIftttWebhookBuilder;
 
 class VerifyIftttWebhookTest extends TestCase

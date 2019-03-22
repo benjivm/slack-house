@@ -2,8 +2,8 @@
 
 namespace Test\App\Services\Ifttt;
 
-use GuzzleHttp\Client;
 use App\Services\Ifttt;
+use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 
 class IftttServiceTest extends TestCase

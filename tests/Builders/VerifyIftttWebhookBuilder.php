@@ -2,10 +2,10 @@
 
 namespace Test\Builders;
 
-use Monolog\Logger;
-use JsonSchema\Validator;
-use PHPUnit\Framework\TestCase;
 use App\Middleware\VerifyIftttWebhook;
+use JsonSchema\Validator;
+use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
 
 class VerifyIftttWebhookBuilder extends TestCase
 {

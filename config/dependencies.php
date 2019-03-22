@@ -46,9 +46,9 @@ $container['appCommand'] = function ($container) {
  */
 $container['app.services.ifttt_client'] = $container->factory(function () {
     return new GuzzleHttp\Client([
-        'base_uri' => 'https://maker.ifttt.com/trigger/',
+        'base_uri'    => 'https://maker.ifttt.com/trigger/',
         'http_errors' => false,
-        'headers' => [
+        'headers'     => [
             'accept' => 'application/json',
         ],
     ]);
@@ -61,10 +61,10 @@ $container['app.services.ifttt_client'] = $container->factory(function () {
  */
 $container['app.services.lifx_client'] = $container->factory(function ($container) {
     return new GuzzleHttp\Client([
-        'base_uri' => 'https://api.lifx.com/v1/',
+        'base_uri'    => 'https://api.lifx.com/v1/',
         'http_errors' => false,
-        'headers' => [
-            'Authorization' => 'Bearer ' . $container->config['lifx']['token'],
+        'headers'     => [
+            'Authorization' => 'Bearer '.$container->config['lifx']['token'],
         ],
     ]);
 });
@@ -112,7 +112,7 @@ $container['app.middleware.verify_plex_webhook'] = function ($container) {
 $container['ifttt'] = function ($container) {
     $config = $container->config['ifttt'];
     $client = $container->get('app.services.ifttt_client');
-    
+
     return new App\Services\Ifttt($config, $client);
 };
 

@@ -2,10 +2,10 @@
 
 namespace Test\App\Controllers;
 
+use App\Controllers\IftttController;
+use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use PHPUnit\Framework\TestCase;
-use App\Controllers\IftttController;
 use Test\Builders\IftttControllerBuilder;
 
 class IftttControllerTest extends TestCase
@@ -32,7 +32,7 @@ class IftttControllerTest extends TestCase
             ->method('getParsedBody')
             ->willReturn((object) [
                 'command' => $command,
-                'event' => $event,
+                'event'   => $event,
             ]);
     }
 

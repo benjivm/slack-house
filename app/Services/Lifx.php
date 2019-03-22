@@ -89,7 +89,7 @@ class Lifx
      */
     public function getLight(string $selector)
     {
-        return $this->get('lights/' . $selector)[0];
+        return $this->get('lights/'.$selector)[0];
     }
 
     /**
@@ -112,14 +112,14 @@ class Lifx
         $scene_uuid = $this->config['scenes'][$sceneName];
 
         $options = [
-            'fast' => true,
+            'fast'     => true,
             'duration' => $duration,
         ];
 
-        if (! empty($overrides)) {
+        if (!empty($overrides)) {
             $options['overrides'] = $overrides;
         }
 
-        $this->put('scenes/scene_id:' . $scene_uuid . '/activate', $options);
+        $this->put('scenes/scene_id:'.$scene_uuid.'/activate', $options);
     }
 }

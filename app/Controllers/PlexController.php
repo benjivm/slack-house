@@ -59,6 +59,6 @@ class PlexController
             return $response->withJson('Stop event handled.');
         }
 
-        return $response->withJson($payload['event'] . ' webhook unhandled.', 422);
+        return $response->withJson($payload['event'].' webhook unhandled.', 422);
     }
 }
