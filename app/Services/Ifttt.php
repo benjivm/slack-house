@@ -38,7 +38,7 @@ class Ifttt
             'value3' => $value3,
         ];
 
-        $request = $this->client->post($event.'/with/key/'.$this->config['key'], ['form_params' => $parameters]);
+        $request = $this->client->post($event . '/with/key/' . $this->config['key'], ['form_params' => $parameters]);
 
         return $request->getBody()->getContents();
     }
