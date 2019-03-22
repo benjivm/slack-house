@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class LifxServiceTest extends TestCase
 {
+    /**
+     * @throws \ReflectionException
+     */
     public function setUp(): void
     {
         $this->client = $this->getMockBuilder(Client::class)

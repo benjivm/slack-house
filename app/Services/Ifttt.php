@@ -8,6 +8,8 @@ class Ifttt
 {
     private $config;
 
+    private $client;
+
     /**
      * IFTTT constructor.
      *

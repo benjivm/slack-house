@@ -10,6 +10,12 @@ class AppCommandInterface
 
     private $configPath;
 
+    /**
+     * AppCommandInterface constructor.
+     *
+     * @param $config
+     * @param $configPath
+     */
     public function __construct($config, $configPath)
     {
         $this->config = $config;

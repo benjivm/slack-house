@@ -16,6 +16,11 @@ class IftttControllerBuilder extends TestCase
 
     private $ifttt;
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withAppCommandStub()
     {
         $this->appCommand = $this->getMockBuilder(AppCommandInterface::class)
@@ -25,6 +30,11 @@ class IftttControllerBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withLifxStub()
     {
         $this->lifx = $this->getMockBuilder(Lifx::class)
@@ -34,6 +44,11 @@ class IftttControllerBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withIfttt()
     {
         $this->ifttt = $this->getMockBuilder(Ifttt::class)
@@ -43,6 +58,9 @@ class IftttControllerBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @return IftttController
+     */
     public function build()
     {
         return new IftttController($this->appCommand, $this->lifx, $this->ifttt);

@@ -8,6 +8,8 @@ class Lifx
 {
     private $config;
 
+    private $client;
+
     /**
      * LIFX constructor.
      *

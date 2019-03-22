@@ -10,6 +10,11 @@ class PlexControllerBuilder extends TestCase
 {
     private $lifx;
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withLifxStub()
     {
         $this->lifx = $this->getMockBuilder(Lifx::class)
@@ -19,6 +24,9 @@ class PlexControllerBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @return PlexController
+     */
     public function build()
     {
         return new PlexController($this->lifx);

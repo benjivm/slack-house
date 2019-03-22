@@ -13,6 +13,9 @@ class GenerateConfig extends Command
 
     private $outputFile;
 
+    /**
+     * GenerateConfig constructor.
+     */
     public function __construct()
     {
         parent::__construct();

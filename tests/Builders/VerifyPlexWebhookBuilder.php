@@ -9,6 +9,11 @@ use PHPUnit\Framework\TestCase;
 
 class VerifyPlexWebhookBuilder extends TestCase
 {
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withMonologStub()
     {
         $this->logger = $this->getMockBuilder(Logger::class)
@@ -18,6 +23,11 @@ class VerifyPlexWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @param array $config
+     *
+     * @return $this
+     */
     public function withConfig(array $config)
     {
         $this->config = $config;
@@ -25,6 +35,11 @@ class VerifyPlexWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withValidatorMock()
     {
         $this->validator = $this->getMockBuilder(Validator::class)
@@ -34,6 +49,11 @@ class VerifyPlexWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withValidatorStub()
     {
         $this->validator = $this->getMockBuilder(Validator::class)
@@ -42,6 +62,9 @@ class VerifyPlexWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function withValidationPassed()
     {
         $this->validator->expects($this->once())
@@ -51,6 +74,9 @@ class VerifyPlexWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @return VerifyPlexWebhook
+     */
     public function build()
     {
         return new VerifyPlexWebhook($this->logger, $this->config, $this->validator);

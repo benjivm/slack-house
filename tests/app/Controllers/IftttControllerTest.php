@@ -12,6 +12,9 @@ class IftttControllerTest extends TestCase
 {
     protected $builder;
 
+    /**
+     * @throws \ReflectionException
+     */
     public function setUp(): void
     {
         $this->builder = new IftttControllerBuilder();
@@ -26,6 +29,10 @@ class IftttControllerTest extends TestCase
             ->getMock();
     }
 
+    /**
+     * @param string $event
+     * @param string $command
+     */
     private function defineRequestEventCommand(string $event, string $command)
     {
         $this->request->expects($this->once())

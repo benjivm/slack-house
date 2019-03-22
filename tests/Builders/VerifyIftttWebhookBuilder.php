@@ -15,6 +15,11 @@ class VerifyIftttWebhookBuilder extends TestCase
 
     private $validator = null;
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withMonologStub()
     {
         $this->logger = $this->getMockBuilder(Logger::class)
@@ -24,6 +29,11 @@ class VerifyIftttWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @param array $config
+     *
+     * @return $this
+     */
     public function withConfig(array $config)
     {
         $this->config = $config;
@@ -31,6 +41,11 @@ class VerifyIftttWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withValidatorMock()
     {
         $this->validator = $this->getMockBuilder(Validator::class)
@@ -40,6 +55,11 @@ class VerifyIftttWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return $this
+     */
     public function withValidatorStub()
     {
         $this->validator = $this->getMockBuilder(Validator::class)
@@ -48,6 +68,9 @@ class VerifyIftttWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function withValidationPassed()
     {
         $this->validator->expects($this->once())
@@ -57,6 +80,9 @@ class VerifyIftttWebhookBuilder extends TestCase
         return $this;
     }
 
+    /**
+     * @return VerifyIftttWebhook
+     */
     public function build()
     {
         return new VerifyIftttWebhook($this->logger, $this->config, $this->validator);

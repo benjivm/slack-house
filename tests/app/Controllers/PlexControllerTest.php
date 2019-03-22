@@ -14,6 +14,9 @@ class PlexControllerTest extends TestCase
 
     private $builder;
 
+    /**
+     * @throws \ReflectionException
+     */
     public function setUp(): void
     {
         $this->builder = new PlexControllerBuilder();
@@ -27,6 +30,9 @@ class PlexControllerTest extends TestCase
             ->getMock();
     }
 
+    /**
+     * @param string $event
+     */
     private function defineRequestEvent(string $event)
     {
         $this->request->expects($this->once())
