@@ -4,17 +4,18 @@
  * App '/webhook' endpoints.
  */
 $app->group('/webhook', function () use ($app) {
+
     /*
      * Handle IFTTT webhooks.
      */
-    $app->post('/ifttt', 'app.controller.ifttt')
-        ->add('app.middleware.verify_ifttt_webhook');
+    $app->post('/ifttt', 'controller.ifttt')
+        ->add('middleware.verify_ifttt_webhook');
 
     /*
      * Handle PLEX webhooks.
      */
-    $app->post('/plex', 'app.controller.plex')
-        ->add('app.middleware.verify_plex_webhook');
+    $app->post('/plex', 'controller.plex')
+        ->add('middleware.verify_plex_webhook');
 });
 
 /*

@@ -1,16 +1,17 @@
 <?php
 
-namespace Test\App\Middleware;
+namespace App\Tests\Unit;
 
 use App\Middleware\VerifyPlexWebhook;
+use App\Tests\Builders\VerifyPlexWebhookBuilder;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Test\Builders\VerifyPlexWebhookBuilder;
 
 class VerifyPlexWebhookTest extends TestCase
 {
     /**
+
      * @throws \ReflectionException
      */
     public function setUp(): void

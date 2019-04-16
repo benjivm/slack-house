@@ -1,12 +1,12 @@
 <?php
 
-namespace Test\App\Controllers;
+namespace App\Tests\App\Controllers;
 
 use App\Controllers\IftttController;
+use App\Tests\Builders\IftttControllerBuilder;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Test\Builders\IftttControllerBuilder;
 
 class IftttControllerTest extends TestCase
 {

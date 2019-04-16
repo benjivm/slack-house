@@ -1,12 +1,12 @@
 <?php
 
-namespace Test\App\Controllers;
+namespace App\Tests\App\Controllers;
 
 use App\Controllers\PlexController;
+use App\Tests\Builders\PlexControllerBuilder;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Test\Builders\PlexControllerBuilder;
 
 class PlexControllerTest extends TestCase
 {

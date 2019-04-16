@@ -47,7 +47,7 @@ class VerifyPlexWebhook
         $payload = json_decode($request->getParsedBody()['payload']);
 
         // Load the Plex JSON schema
-        $this->validator->validate($payload, (object) ['$ref' => 'file://' . base_path('config/schema/plex.json')]);
+        $this->validator->validate($payload, (object) ['$ref' => 'file://' . PROJECT_ROOT . '/resources/schema/plex.json']);
 
         // Validate the JSON payload against the Plex schema
         // Log and fail otherwise

@@ -19,11 +19,12 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app/",
-      "Test\\": "tests/"
-    },
-    "files": [
-      "app/Helpers/functions.php"
-    ]
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Tests\\": "tests/"
+    }
   }
 }

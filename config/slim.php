@@ -1,7 +1,7 @@
 <?php
 
 // Load Slack House config
-$slackHouseValueStore = Spatie\Valuestore\Valuestore::make(base_path('config/slack-house.json'));
+$slackHouseValueStore = Spatie\Valuestore\Valuestore::make(PROJECT_ROOT . '/config/slack-house.json');
 
 return [
     'settings' => [
@@ -10,11 +10,11 @@ return [
 
         // Monolog settings
         'logger' => [
-            'name'  => 'slackhouse',
+            'name'  => 'slack-house',
             'level' => \Monolog\Logger::DEBUG,
         ],
 
         // Merge Slack House settings
-        'slackHouse' => $slackHouseValueStore->all(),
+        'slack-house' => $slackHouseValueStore->all(),
     ],
 ];

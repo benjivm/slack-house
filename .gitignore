@@ -1,6 +1,6 @@
 .idea
-config/slack-house.json
 vendor/
 logs/*.log
+slack-house.json
 settings.ini
 .phpunit.result.cache

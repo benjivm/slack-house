@@ -2,13 +2,17 @@
 
 $container = $app->getContainer();
 
+$container['hello'] = function ($container) {
+    return json_encode(['message' => 'this is a test']);
+};
+
 /*
  * Slackhouse configuration.
  *
  * @return array
  */
 $container['config'] = function ($container) {
-    return $container->settings['slackHouse'];
+    return $container->settings['slack-house'];
 };
 
 /*
@@ -30,13 +34,13 @@ $container['logger'] = function ($container) {
 /*
  * App config interface.
  *
- * @return \App\Interfaces\AppCommandInterface
+ * @return \App\Services\AppCommand
  */
 $container['appCommand'] = function ($container) {
     $config = $container->config;
-    $configPath = base_path('config/slack-house.json');
+    $configPath = PROJECT_ROOT . '/config/slack-house.json';
 
-    return new App\Interfaces\AppCommandInterface($config, $configPath);
+    return new App\Services\AppCommand($config, $configPath);
 };
 
 /*
@@ -44,7 +48,7 @@ $container['appCommand'] = function ($container) {
  *
  * @return \GuzzleHttp\Client
  */
-$container['app.services.ifttt_client'] = $container->factory(function () {
+$container['services.ifttt_client'] = $container->factory(function () {
     return new GuzzleHttp\Client([
         'base_uri'    => 'https://maker.ifttt.com/trigger/',
         'http_errors' => false,
@@ -59,7 +63,7 @@ $container['app.services.ifttt_client'] = $container->factory(function () {
  *
  * @return \GuzzleHttp\Client
  */
-$container['app.services.lifx_client'] = $container->factory(function ($container) {
+$container['services.lifx_client'] = $container->factory(function ($container) {
     return new GuzzleHttp\Client([
         'base_uri'    => 'https://api.lifx.com/v1/',
         'http_errors' => false,
@@ -74,7 +78,7 @@ $container['app.services.lifx_client'] = $container->factory(function ($containe
  *
  * @return \JsonSchema\Validator
  */
-$container['app.services.validator'] = $container->factory(function () {
+$container['services.validator'] = $container->factory(function () {
     return new JsonSchema\Validator();
 });
 
@@ -83,10 +87,10 @@ $container['app.services.validator'] = $container->factory(function () {
  *
  * @return \App\Middleware\VerifyIftttWebhook
  */
-$container['app.middleware.verify_ifttt_webhook'] = function ($container) {
+$container['middleware.verify_ifttt_webhook'] = function ($container) {
     $logger = $container->get('logger');
     $config = $container->get('config');
-    $validator = $container->get('app.services.validator');
+    $validator = $container->get('services.validator');
 
     return new App\Middleware\VerifyIftttWebhook($logger, $config, $validator);
 };
@@ -96,10 +100,10 @@ $container['app.middleware.verify_ifttt_webhook'] = function ($container) {
  *
  * @return \App\Middleware\VerifyPlexWebhook
  */
-$container['app.middleware.verify_plex_webhook'] = function ($container) {
+$container['middleware.verify_plex_webhook'] = function ($container) {
     $logger = $container->get('logger');
     $config = $container->get('config');
-    $validator = $container->get('app.services.validator');
+    $validator = $container->get('services.validator');
 
     return new App\Middleware\VerifyPlexWebhook($logger, $config, $validator);
 };
@@ -111,7 +115,7 @@ $container['app.middleware.verify_plex_webhook'] = function ($container) {
  */
 $container['ifttt'] = function ($container) {
     $config = $container->config['ifttt'];
-    $client = $container->get('app.services.ifttt_client');
+    $client = $container->get('services.ifttt_client');
 
     return new App\Services\Ifttt($config, $client);
 };
@@ -123,7 +127,7 @@ $container['ifttt'] = function ($container) {
  */
 $container['lifx'] = function ($container) {
     $config = $container->config['lifx'];
-    $client = $container->get('app.services.lifx_client');
+    $client = $container->get('services.lifx_client');
 
     return new App\Services\Lifx($config, $client);
 };
@@ -131,7 +135,7 @@ $container['lifx'] = function ($container) {
 /*
  * Controllers
  */
-$container['app.controller.ifttt'] = function ($container) {
+$container['controller.ifttt'] = function ($container) {
     $appCommand = $container->get('appCommand');
     $lifx = $container->get('lifx');
     $ifttt = $container->get('ifttt');
@@ -139,7 +143,7 @@ $container['app.controller.ifttt'] = function ($container) {
     return new App\Controllers\IftttController($appCommand, $lifx, $ifttt);
 };
 
-$container['app.controller.plex'] = function ($container) {
+$container['controller.plex'] = function ($container) {
     $lifx = $container->get('lifx');
 
     return new App\Controllers\PlexController($lifx);

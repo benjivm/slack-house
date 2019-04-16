@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Builders;
+namespace App\Tests\Builders;
 
 use App\Middleware\VerifyIftttWebhook;
 use JsonSchema\Validator;

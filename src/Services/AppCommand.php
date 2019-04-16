@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Interfaces;
+namespace App\Services;
 
 use Spatie\Valuestore\Valuestore;
 
-class AppCommandInterface
+class AppCommand
 {
     private $config;
 
     private $configPath;
 
     /**
-     * AppCommandInterface constructor.
+     * AppCommand constructor.
      *
      * @param $config
      * @param $configPath

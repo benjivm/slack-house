@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Commands;
+namespace App\Console;
 
 use Spatie\Valuestore\Valuestore;
 use Symfony\Component\Console\Command\Command;
@@ -20,8 +20,8 @@ class GenerateConfig extends Command
     {
         parent::__construct();
 
-        $this->inputFile = base_path('settings.ini');
-        $this->outputFile = base_path('config/slack-house.json');
+        $this->inputFile = PROJECT_ROOT . '/settings.ini';
+        $this->outputFile = PROJECT_ROOT . '/config/slack-house.json';
     }
 
     /**

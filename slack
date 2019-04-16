@@ -2,7 +2,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use App\Commands\GenerateConfig;
+use App\Console\GenerateConfig;
 use Symfony\Component\Console\Application;
 
 $slackHouseCli = new Application();

@@ -2,7 +2,7 @@
 <phpunit printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
          backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="bootstrap/app.php"
+         bootstrap="tests/bootstrap.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"

@@ -1,12 +1,12 @@
 <?php
 
-namespace Test\App\Middleware;
+namespace App\Tests\Unit;
 
 use App\Middleware\VerifyIftttWebhook;
+use App\Tests\Builders\VerifyIftttWebhookBuilder;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Test\Builders\VerifyIftttWebhookBuilder;
 
 class VerifyIftttWebhookTest extends TestCase
 {

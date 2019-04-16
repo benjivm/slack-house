@@ -1,9 +1,9 @@
 <?php
 
-namespace Test\Builders;
+namespace App\Tests\Builders;
 
 use App\Controllers\IftttController;
-use App\Interfaces\AppCommandInterface;
+use App\Services\AppCommand;
 use App\Services\Ifttt;
 use App\Services\Lifx;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +23,7 @@ class IftttControllerBuilder extends TestCase
      */
     public function withAppCommandStub()
     {
-        $this->appCommand = $this->getMockBuilder(AppCommandInterface::class)
+        $this->appCommand = $this->getMockBuilder(AppCommand::class)
             ->disableOriginalConstructor()
             ->getMock();
 

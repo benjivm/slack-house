@@ -1,14 +1,15 @@
 <?php
 
-namespace Test\App\Services\Lifx;
+namespace App\Tests\App\Services;
 
-use App\Services\Lifx;
+use App\Services\Ifttt;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 
-class LifxServiceTest extends TestCase
+class IftttServiceTest extends TestCase
 {
     /**
+
      * @throws \ReflectionException
      */
     public function setUp(): void
@@ -20,10 +21,10 @@ class LifxServiceTest extends TestCase
     /**
      * @test
      */
-    public function theLifxServiceIsInstantiated()
+    public function theIftttServiceIsInstantiated()
     {
-        $lifx = new Lifx([], $this->client);
+        $ifttt = new Ifttt([], $this->client);
 
-        $this->assertInstanceOf(Lifx::class, $lifx);
+        $this->assertInstanceOf(Ifttt::class, $ifttt);
     }
 }

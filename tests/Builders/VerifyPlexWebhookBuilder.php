@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Builders;
+namespace App\Tests\Builders;
 
 use App\Middleware\VerifyPlexWebhook;
 use JsonSchema\Validator;
@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 class VerifyPlexWebhookBuilder extends TestCase
 {
     /**
+
      * @throws \ReflectionException
      *
      * @return $this

@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Builders;
+namespace App\Tests\Builders;
 
 use App\Controllers\PlexController;
 use App\Services\Lifx;
