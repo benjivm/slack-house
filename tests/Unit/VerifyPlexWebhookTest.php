@@ -11,7 +11,6 @@ use Slim\Http\Response;
 class VerifyPlexWebhookTest extends TestCase
 {
     /**
-
      * @throws \ReflectionException
      */
     public function setUp(): void
