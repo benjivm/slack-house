@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 class VerifyPlexWebhookBuilder extends TestCase
 {
     /**
-
      * @throws \ReflectionException
      *
      * @return $this
