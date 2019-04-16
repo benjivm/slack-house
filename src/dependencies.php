@@ -2,10 +2,6 @@
 
 $container = $app->getContainer();
 
-$container['hello'] = function ($container) {
-    return json_encode(['message' => 'this is a test']);
-};
-
 /*
  * Slackhouse configuration.
  *
