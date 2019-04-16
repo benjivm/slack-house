@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 class IftttServiceTest extends TestCase
 {
     /**
-
      * @throws \ReflectionException
      */
     public function setUp(): void
