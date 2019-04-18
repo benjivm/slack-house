@@ -16,7 +16,7 @@ This is a barebones and personal app, but you may find it a useful starting poin
 - Clone or download the repo to the appropriate directory you setup in the previous step (again, ensure the `/public` directory is your document root)
 - Install dependencies: `composer install --no-dev`
 - Create your `settings.ini` file: `cp settings.ini.example settings.ini` and edit the contents with your desired configuration.
-- Now generate your unique configuration file by executing `php slack config:generate` from a terminal. **Note**: The config file (`config/slack-house.json`) will be regenerated every time the `slack config:generate` command is called, so make sure your `settings.ini` file is up-to-date before you run the command, or use the `appCommand` function (see `$this->appCommand(...)` used in `app/Controllers/IftttController.php`).
+- Now generate your unique configuration file by executing `php slack config:generate` from a terminal. **Note**: The config file (`config/slack-house.json`) will be regenerated every time the `slack config:generate` command is called, so make sure your `settings.ini` file is up-to-date before you run the command and never edit the generated JSON config file directly.
 
 ### Usage
 
