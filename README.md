@@ -20,7 +20,7 @@ This is a barebones and personal app, but you may find it a useful starting poin
 
 ### Usage
 
-This app interacts primarily with and [Plex](https://plex.tv), but in my configuration, through [IFTTT](https://ifttt.com) webhooks it also sends commands to [Harmony](https://www.logitech.com/en-us/harmony-universal-remotes), [Shield TV](https://www.nvidia.com/en-us/shield/), and [TP Link](https://www.tp-link.com/us/kasa-smart/kasa.html) smart plugs. It should be trivial to integrate any other products so long as they provide an HTTP API or IFTTT can interact with them.
+This app interacts primarily with [LIFX](https://lifx.com) and [Plex](https://plex.tv), but in my configuration, through [IFTTT](https://ifttt.com) webhooks it also sends commands to [Harmony](https://www.logitech.com/en-us/harmony-universal-remotes), [Shield TV](https://www.nvidia.com/en-us/shield/), and [TP Link](https://www.tp-link.com/us/kasa-smart/kasa.html) smart plugs. It should be trivial to integrate any other products so long as they provide an HTTP API or IFTTT can interact with them.
 
 [Monolog](https://github.com/Seldaek/monolog) messages are sent to my Discord server, but there are [many other ways](https://github.com/Seldaek/monolog/blob/master/doc/02-handlers-formatters-processors.md#handlers) to catch them.
 
