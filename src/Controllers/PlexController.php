@@ -30,7 +30,7 @@ class PlexController
         // Handle the Play event
         if ($payload->event === 'media.play') {
             // Power off all the lights in the LIFX Warm Night scene over 30 seconds
-            $this->lifx->activateScene('warm_night', 30, ['power' => 'off']);
+            $this->lifx->activateScene('warm_night', 60, ['power' => 'off']);
 
             return $response->withJson('Play event handled.');
         }
@@ -38,7 +38,7 @@ class PlexController
         // Handle the Pause event
         if ($payload->event === 'media.pause') {
             // Turn on the LIFX Warm Night scene over 3 seconds
-            $this->lifx->activateScene('warm_night', 3);
+            $this->lifx->activateScene('warm_night', 5, ['brightness' => 0.45]);
 
             return $response->withJson('Pause event handled.');
         }
@@ -54,7 +54,7 @@ class PlexController
         // Handle the Stop event
         if ($payload->event === 'media.stop') {
             // Turn on the LIFX Warm Night scene over 15 seconds
-            $this->lifx->activateScene('warm_night', 15);
+            $this->lifx->activateScene('warm_night', 30);
 
             return $response->withJson('Stop event handled.');
         }

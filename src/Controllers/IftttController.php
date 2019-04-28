@@ -63,7 +63,7 @@ class IftttController
             // 4. Tell Harmony to activate the Shield TV activity
             if ($payload->command === 'activate_movie_time') {
                 $this->appCommand->changeSetting('plex.webhooks', 'enabled');
-                $this->lifx->activateScene('movie_time', 5);
+                $this->lifx->activateScene('movie_time', 25);
                 $this->ifttt->trigger('turn_tv_plug_on');
                 $this->ifttt->trigger('start_shield_activity');
 
