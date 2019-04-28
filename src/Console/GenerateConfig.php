@@ -29,7 +29,6 @@ class GenerateConfig extends Command
      */
     protected function configure()
     {
-
         $this->setName('config:generate')
             ->setDescription('Generates a static config file from your ./settings.ini configuration')
             ->setHelp('This command will generate your config file');
