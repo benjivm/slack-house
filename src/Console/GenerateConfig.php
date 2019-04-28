@@ -20,8 +20,8 @@ class GenerateConfig extends Command
     {
         parent::__construct();
 
-        $this->inputFile = PROJECT_ROOT . '/settings.ini';
-        $this->outputFile = PROJECT_ROOT . '/config/slack-house.json';
+        $this->inputFile = realpath(__DIR__ . '/../../settings.ini');
+        $this->outputFile = realpath(__DIR__ . '/../../config/slack-house.json');
     }
 
     /**
@@ -29,6 +29,7 @@ class GenerateConfig extends Command
      */
     protected function configure()
     {
+
         $this->setName('config:generate')
             ->setDescription('Generates a static config file from your ./settings.ini configuration')
             ->setHelp('This command will generate your config file');

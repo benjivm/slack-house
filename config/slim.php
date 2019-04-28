@@ -1,9 +1,15 @@
 <?php
 
+// Composer autoloader
+require __DIR__ . '/../vendor/autoload.php';
+
+// Project root global
+define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
+
 // Load Slack House config
 $slackHouseValueStore = Spatie\Valuestore\Valuestore::make(PROJECT_ROOT . '/config/slack-house.json');
 
-return [
+$settings = [
     'settings' => [
         'displayErrorDetails'    => $slackHouseValueStore->get('app')['display_errors'],
         'addContentLengthHeader' => true,

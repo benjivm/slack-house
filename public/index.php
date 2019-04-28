@@ -1,16 +1,10 @@
 <?php
 
-// Composer autoloader
-require __DIR__ . '/../vendor/autoload.php';
-
-// Define project root directory
-define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
-
-// Load Slim config
-$slimConfig = require PROJECT_ROOT . '/config/slim.php';
+// Bootstrap
+require __DIR__ . '/../config/slim.php';
 
 // Boot the app
-$app = new Slim\App($slimConfig);
+$app = new Slim\App($settings);
 
 // Register dependencies
 require PROJECT_ROOT . '/src/dependencies.php';
