@@ -10,7 +10,7 @@
     "symfony/console": "^4.1"
   },
   "require-dev": {
-    "codedungeon/phpunit-result-printer": "^0.23.4",
+    "codedungeon/phpunit-result-printer": "^0.26",
     "phpunit/phpunit": "^8.0",
     "symfony/var-dumper": "^4.1"
   },
