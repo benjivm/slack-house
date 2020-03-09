@@ -23,7 +23,7 @@ $app->group('/webhook', function () use ($app) {
  */
 $app->get('/[{path:.*}]', function ($request, $response, $path = null) {
     return $response->withJson([
-            'error'   => 404,
-            'message' => 'Not found.',
-        ], 404);
+        'error'   => 404,
+        'message' => 'Not found.',
+    ], 404);
 });
