@@ -31,7 +31,7 @@ Plex players that are allowed to trigger events are verified by `UUID` (obtained
 You can hack up the IFTTT and LIFX API wrappers as needed, they're located in the [`src/Services`](https://github.com/benjivm/slack-house/tree/master/src/Services) directory and use the [Guzzle](https://github.com/guzzle/guzzle) client for requests, though this too can easily be swapped out if you prefer another client.
 
 #### API Endpoints
-```
+```php
 $app->group('/webhook', function () use ($app) {
     // IFTTT
     $app->post('/ifttt', 'app.controller.ifttt')
@@ -45,7 +45,7 @@ $app->group('/webhook', function () use ($app) {
 
 Only two routes are needed to handle the commands sent by Plex webhooks or IFTTT applets. The IFTTT commands must have a valid payload in order to pass schema validation (see [`src/Middleware/VerifyIftttWebhook.php`](https://github.com/benjivm/slack-house/blob/master/src/Middleware/VerifyIftttWebhook.php)):
 
-```
+```json
 {
     "key": "ifttt_maker_key_here",
     "event": "event_name_here",
@@ -55,7 +55,7 @@ Only two routes are needed to handle the commands sent by Plex webhooks or IFTTT
 
 So, for example, if I want to activate movie time, I tell my Google Assistant: "It's movie time.", and it triggers the IFTTT webhook for movie time, handled in [`src/Controllers/IftttController.php`](https://github.com/benjivm/slack-house/blob/master/src/Controllers/IftttController.php):
 
-```
+```php
 // Handle home events
 if ($payload->event === 'home_command') {
     // Movie time!
@@ -76,7 +76,7 @@ if ($payload->event === 'home_command') {
 
 Plex sends its payloads as JSON in a URL encoded POST request, so we need to run `json_decode()` on the `payload` after we receive it. The Plex middleware (see [`src/Middleware/VerifyPlexWebhook.php`](https://github.com/benjivm/slack-house/blob/master/src/Middleware/VerifyPlexWebhook.php))) validates the Plex payloads, which look like this:
 
-```
+```json
 {
    "event": "media.play",
    "user": true,
@@ -127,7 +127,7 @@ Plex sends its payloads as JSON in a URL encoded POST request, so we need to run
 
 Pressing play on a movie or show in Plex sends a webhook to our `/webhook/plex` endpoint which, if it passed validation, is handled in [`src/Controllers/PlexController.php`](https://github.com/benjivm/slack-house/blob/master/src/Controllers/PlexController.php):
 
-```
+```php
 // Handle the Play event
 if ($payload->event === 'media.play') {
     // Power off all the lights in the LIFX Warm Night scene over 30 seconds
